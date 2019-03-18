@@ -6,10 +6,12 @@ namespace Lucilvio.Ticket.Testes
     public class TestesDeCLiente
     {
         [TestMethod]
-        public void ClienteAbreChamado()
+        public void ClienteRecebeProtocoloAoAbrirChamado()
         {
             var cliente = new Cliente();    
-            cliente.AbrirChamado("Chamado de teste");
+            var protocolo = cliente.AbrirChamado("Chamado de teste");
+
+            Assert.IsTrue(protocolo > 0);
         }
     }
 }

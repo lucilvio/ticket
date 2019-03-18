@@ -12,9 +12,12 @@ namespace Lucilvio.Ticket.Testes
             this._chamados = new List<Chamado>();
         }
 
-        internal void AbrirChamado(string descricao)
+        internal int AbrirChamado(string descricao)
         {
-            this._chamados.Add(new Chamado(descricao));
+            var novoChamado = new Chamado(descricao);
+            this._chamados.Add(novoChamado);
+
+            return novoChamado.Protocolo;
         }
     }
 }

@@ -7,6 +7,10 @@
         public Chamado(string descricao)
         {
             this._descricao = descricao;
+
+            this.Protocolo = 1;
         }
+
+        public int Protocolo { get; }
     }
 }
