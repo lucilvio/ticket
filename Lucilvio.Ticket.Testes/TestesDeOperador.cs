@@ -18,5 +18,15 @@ namespace Lucilvio.Ticket.Testes
 
             Assert.IsNotNull(novoChamado);
         }
+
+        [TestMethod]
+        public void RespondeAoChamado()
+        {
+            var cliente = new Cliente();
+            var novoChamado = cliente.AbrirChamado(new GeradorDeProtocolo(2019, 0), "Chamado de teste", new SemNotificacao());
+
+            var operador = new Operador();
+            operador.ResponderAoChamado(novoChamado, "Resposta de teste");
+        }
     }
 }

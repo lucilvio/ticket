@@ -12,5 +12,10 @@ namespace Lucilvio.Ticket.Testes
         {
             return new Chamado(cliente, geradorDeProtocolo, descricao);
         }
+
+        internal void ResponderAoChamado(Chamado novoChamado, string resposta)
+        {
+            novoChamado.AdicionarResposta(resposta);
+        }
     }
 }
