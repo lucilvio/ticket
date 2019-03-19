@@ -14,7 +14,7 @@ namespace Lucilvio.Ticket.Testes
 
         internal Chamado AbrirChamado(GeradorDeProtocolo geradorDeProtocolo, string descricao, IServicoDeNotificacao servicoDeNotificacao)
         {
-            var novoChamado = new Chamado(geradorDeProtocolo, descricao);
+            var novoChamado = new Chamado(this, geradorDeProtocolo, descricao);
             this._chamados.Add(novoChamado);
 
             var notificacao = new Notificacao(novoChamado.Protocolo, novoChamado.TempDeAtendimento);
