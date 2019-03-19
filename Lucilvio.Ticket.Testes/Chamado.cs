@@ -3,14 +3,20 @@
     internal class Chamado
     {
         private string _descricao;
+        private GeradorDeProtocolo _geradorDeProtocolo;
 
-        public Chamado(string descricao)
+        public Chamado(GeradorDeProtocolo geradorDeProtocolo, string descricao)
         {
+            if (string.IsNullOrEmpty(descricao))
+                throw new FaltaDescricaoDoProblema();
+
             this._descricao = descricao;
 
-            this.Protocolo = 1;
+            this._geradorDeProtocolo = geradorDeProtocolo.NovoProtocolo();
+            this.TempDeAtendimento = 1;
         }
 
-        public int Protocolo { get; }
+        public string Protocolo { get => this._geradorDeProtocolo.NumeroDoUltimoProcotoloGerado; }
+        public int TempDeAtendimento { get; }
     }
 }

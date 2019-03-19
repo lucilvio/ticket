@@ -12,12 +12,15 @@ namespace Lucilvio.Ticket.Testes
             this._chamados = new List<Chamado>();
         }
 
-        internal int AbrirChamado(string descricao)
+        internal Chamado AbrirChamado(GeradorDeProtocolo geradorDeProtocolo, string descricao, IServicoDeNotificacao servicoDeNotificacao)
         {
-            var novoChamado = new Chamado(descricao);
+            var novoChamado = new Chamado(geradorDeProtocolo, descricao);
             this._chamados.Add(novoChamado);
 
-            return novoChamado.Protocolo;
+            var notificacao = new Notificacao(novoChamado.Protocolo, novoChamado.TempDeAtendimento);
+            servicoDeNotificacao.Notificar(notificacao);
+
+            return novoChamado;
         }
     }
 }
