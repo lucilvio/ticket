@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Lucilvio.Ticket.Testes
 {
-    internal class Cliente
+    public class Cliente
     {
         private IList<Chamado> _chamados;
 
-        public Cliente()
+        public Cliente(string login)
         {
+            this.Login = login;
             this._chamados = new List<Chamado>();
         }
 
-        internal Chamado AbrirChamado(GeradorDeProtocolo geradorDeProtocolo, string descricao, IServicoDeNotificacao servicoDeNotificacao)
+        public string Login { get; }
+
+        public Chamado AbrirChamado(GeradorDeProtocolo geradorDeProtocolo, string descricao, IServicoDeNotificacao servicoDeNotificacao)
         {
             var novoChamado = new Chamado(this, geradorDeProtocolo, descricao);
             this._chamados.Add(novoChamado);

@@ -1,0 +1,28 @@
+﻿@{ 
+    Layout = "_Layout";
+}
+
+<h2>Lista de Chamados</h2>
+
+<div>
+    <table class="table table-striped table-bordered">
+        <thsead>
+            <tr>
+                <th>Protocolo</th>
+                <th>Descricao</th>
+            </tr>
+
+            @foreach (var chamado in @Model)
+            {
+                <tr>
+                    <td> @chamado.Protocolo </td>
+                    <td> @chamado.Descricao </td>
+                </tr>
+            }
+        </thsead>
+    </table>
+</div>
+
+<div>
+    <a href="/chamados/novo" class="btn btn-primary"> Abrir Chamado </a>
+</div>

@@ -15,7 +15,7 @@ namespace Lucilvio.Ticket.Testes
 
         internal void ResponderAoChamado(Chamado novoChamado, string resposta)
         {
-            novoChamado.AdicionarResposta(resposta);
+            novoChamado.AdicionarResposta(new Resposta(this, DateTime.Now, resposta));
         }
     }
 }

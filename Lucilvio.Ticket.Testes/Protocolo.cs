@@ -1,6 +1,6 @@
 ﻿namespace Lucilvio.Ticket.Testes
 {
-    internal class GeradorDeProtocolo
+    public class GeradorDeProtocolo
     {
         private int _ano;
         private int _ultimoProtocoloGerado;
@@ -11,7 +11,7 @@
             this._ultimoProtocoloGerado = ultimoProtocoloGerado;
         }
 
-        public string NumeroDoUltimoProcotoloGerado => $"{this._ultimoProtocoloGerado}{this._ano}";
+        public int NumeroDoUltimoProcotoloGerado => int.Parse($"{this._ultimoProtocoloGerado}{this._ano}");
 
         internal GeradorDeProtocolo NovoProtocolo()
         {

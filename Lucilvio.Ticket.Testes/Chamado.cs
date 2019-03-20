@@ -2,12 +2,11 @@
 
 namespace Lucilvio.Ticket.Testes
 {
-    internal class Chamado
+    public class Chamado
     {
-        private readonly string _descricao;
         private readonly Cliente _cliente;
         private readonly GeradorDeProtocolo _geradorDeProtocolo;
-        private readonly IList<string> _respostas;
+        private readonly IList<Resposta> _respostas;
 
         public Chamado(Cliente cliente, GeradorDeProtocolo geradorDeProtocolo, string descricao)
         {
@@ -15,19 +14,21 @@ namespace Lucilvio.Ticket.Testes
                 throw new FaltaDescricaoDoProblema();
 
             this._cliente = cliente;
-            this._descricao = descricao;
-            this._respostas = new List<string>();
+            this.Descricao = descricao;
+            this._respostas = new List<Resposta>();
 
             this._geradorDeProtocolo = geradorDeProtocolo.NovoProtocolo();
             this.TempDeAtendimento = 1;
         }
 
-        internal void AdicionarResposta(string resposta)
+        public string Descricao { get; }
+
+        internal void AdicionarResposta(Resposta resposta)
         {
             this._respostas.Add(resposta);
         }
 
-        public string Protocolo { get => this._geradorDeProtocolo.NumeroDoUltimoProcotoloGerado; }
+        public int Protocolo { get => this._geradorDeProtocolo.NumeroDoUltimoProcotoloGerado; }
         public int TempDeAtendimento { get; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Lucilvio.Ticket.Testes
 {
-    internal interface IServicoDeNotificacao
+    public interface IServicoDeNotificacao
     {
         void Notificar(Notificacao notificacao);
     }

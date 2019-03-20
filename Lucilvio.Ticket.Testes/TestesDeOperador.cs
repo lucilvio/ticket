@@ -1,9 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lucilvio.Ticket.Testes
 {
@@ -14,7 +9,7 @@ namespace Lucilvio.Ticket.Testes
         public void AbreChamadoEmNomeDoCliente()
         {
             var operador = new Operador();
-            var novoChamado = operador.AbrirChamado(new Cliente(), new GeradorDeProtocolo(2019, 0), "Chamado de teste");
+            var novoChamado = operador.AbrirChamado(new Cliente("Teste"), new GeradorDeProtocolo(2019, 0), "Chamado de teste");
 
             Assert.IsNotNull(novoChamado);
         }
@@ -22,7 +17,7 @@ namespace Lucilvio.Ticket.Testes
         [TestMethod]
         public void RespondeAoChamado()
         {
-            var cliente = new Cliente();
+            var cliente = new Cliente("Teste");
             var novoChamado = cliente.AbrirChamado(new GeradorDeProtocolo(2019, 0), "Chamado de teste", new SemNotificacao());
 
             var operador = new Operador();

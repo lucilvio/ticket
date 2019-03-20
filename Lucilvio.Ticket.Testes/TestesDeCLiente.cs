@@ -13,7 +13,7 @@ namespace Lucilvio.Ticket.Testes
         [TestInitialize]
         public void Iniciar()
         {
-            this._cliente = new Cliente();
+            this._cliente = new Cliente("teste");
             this._geradorDeProtocolo = new GeradorDeProtocolo(2019, 0);
             this._descricaoDoChamado = "Chamado de teste";
         }
@@ -39,7 +39,7 @@ namespace Lucilvio.Ticket.Testes
             var novoChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, new SemNotificacao());
 
             Assert.IsTrue(novoChamado != null);
-            Assert.IsTrue(!string.IsNullOrEmpty(novoChamado.Protocolo));
+            Assert.IsTrue(novoChamado.Protocolo > 0);
         }
 
         [TestMethod]
@@ -57,8 +57,8 @@ namespace Lucilvio.Ticket.Testes
             var chamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, new SemNotificacao());
             var outroChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, new SemNotificacao());
 
-            Assert.IsTrue(chamado.Protocolo == "12019");
-            Assert.IsTrue(outroChamado.Protocolo == "22019");
+            Assert.IsTrue(chamado.Protocolo == 12019);
+            Assert.IsTrue(outroChamado.Protocolo == 22019);
         }
     }
 
@@ -79,7 +79,7 @@ namespace Lucilvio.Ticket.Testes
         }
     }
 
-    internal class SemNotificacao : IServicoDeNotificacao
+    public class SemNotificacao : IServicoDeNotificacao
     {
         public void Notificar(Notificacao notificacao)
         {
