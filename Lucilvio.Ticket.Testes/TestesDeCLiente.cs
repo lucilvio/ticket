@@ -39,7 +39,7 @@ namespace Lucilvio.Ticket.Testes
             var novoChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, new SemNotificacao());
 
             Assert.IsTrue(novoChamado != null);
-            Assert.IsTrue(novoChamado.Protocolo > 0);
+            Assert.IsTrue(!string.IsNullOrEmpty(novoChamado.Protocolo));
         }
 
         [TestMethod]
@@ -57,8 +57,8 @@ namespace Lucilvio.Ticket.Testes
             var chamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, new SemNotificacao());
             var outroChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, new SemNotificacao());
 
-            Assert.IsTrue(chamado.Protocolo == 12019);
-            Assert.IsTrue(outroChamado.Protocolo == 22019);
+            Assert.IsTrue(chamado.Protocolo == "12019");
+            Assert.IsTrue(outroChamado.Protocolo == "22019");
         }
     }
 

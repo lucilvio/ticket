@@ -28,7 +28,7 @@ namespace Lucilvio.Ticket.Testes
             this._respostas.Add(resposta);
         }
 
-        public int Protocolo { get => this._geradorDeProtocolo.NumeroDoUltimoProcotoloGerado; }
+        public string Protocolo { get => this._geradorDeProtocolo.NumeroDoUltimoProcotoloGerado; }
         public int TempDeAtendimento { get; }
     }
 }

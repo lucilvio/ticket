@@ -9,15 +9,19 @@
         <thsead>
             <tr>
                 <th>Protocolo</th>
+                <th>Cliente</th>
                 <th>Descricao</th>
+                <th>Data Da Abertura</th>
             </tr>
 
             @foreach (var chamado in @Model)
             {
-                <tr>
-                    <td> @chamado.Protocolo </td>
-                    <td> @chamado.Descricao </td>
-                </tr>
+            <tr>
+                <td> @chamado.Protocolo </td>
+                <td> @chamado.Cliente </td>
+                <td> @chamado.Descricao </td>
+                <td> @chamado.DataDaAbertura </td>
+            </tr>
             }
         </thsead>
     </table>

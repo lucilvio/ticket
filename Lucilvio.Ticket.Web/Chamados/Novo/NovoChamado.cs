@@ -1,7 +1,8 @@
 ﻿namespace Lucilvio.Ticket.Web.Chamados
 {
-    public class NovoChamado
+    public class DadosDoNovoChamado
     {
+        public string Cliente { get; set; }
         public string Descricao { get; set; }
     }
 }

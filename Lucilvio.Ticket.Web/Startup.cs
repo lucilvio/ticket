@@ -41,8 +41,23 @@ namespace Lucilvio.Ticket.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSingleton<IRepositorioDeClientes, RepositorioDeClientesEmMemoria>();
-            services.AddSingleton<IRepositorioDeChamados, RepositorioDeChamadosEmMemoria>();
+            services.AddSingleton<IContexto, ContextoEmMemoria>();
+
+            services.AddSingleton<IRepositorioDeChamados>(provider =>
+            {
+                return new RepositorioDeChamadosEmMemoria(provider.GetService<IContexto>());
+            });
+
+            services.AddSingleton<IRepositorioDeClientes>(provider =>
+            {
+                return new RepositorioDeClientesEmMemoria(provider.GetService<IContexto>());
+            });
+
+            services.AddScoped<IBuscaDeChamados>(provider =>
+            {
+                return new BuscaDeChamados(provider.GetService<IContexto>());
+            });
+
             services.AddTransient<IAdaptadorDeCliente, AdaptadorDeCliente>();
         }
 

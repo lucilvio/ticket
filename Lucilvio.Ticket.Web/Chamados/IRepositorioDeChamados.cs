@@ -13,26 +13,27 @@ namespace Lucilvio.Ticket.Web.Chamados
 
     public class RepositorioDeChamadosEmMemoria : IRepositorioDeChamados
     {
-        private static IList<DadosDoChamado> _chamados;
+        private IContexto _contexto;
 
-        public RepositorioDeChamadosEmMemoria()
+        public RepositorioDeChamadosEmMemoria(IContexto contexto)
         {
-            _chamados = new List<DadosDoChamado>();
+            this._contexto = contexto;
         }
 
         public void Adicionar(Chamado novoChamado)
         {
-            _chamados.Add(new DadosDoChamado { Protocolo = novoChamado.Protocolo, Descricao = novoChamado.Descricao });
+            this._contexto.Chamados.Add(new DadosDoChamado { Protocolo = novoChamado.Protocolo, Descricao = novoChamado.Descricao });
         }
 
         public IReadOnlyList<DadosDoChamado> Listar()
         {
-            return _chamados.ToList();
+            return this._contexto.Chamados.ToList();
         }
 
         public int PegarUltimoProtocolo()
         {
-            return _chamados.OrderByDescending(c => c.DataDeAbertura).Select(c => c.Protocolo).FirstOrDefault();
+            var protocolo = this._contexto.Chamados.OrderByDescending(c => c.DataDeAbertura).Select(c => c.Protocolo).FirstOrDefault();
+            return !string.IsNullOrEmpty(protocolo) ? int.Parse(protocolo) : 0;
         }
     }
 }

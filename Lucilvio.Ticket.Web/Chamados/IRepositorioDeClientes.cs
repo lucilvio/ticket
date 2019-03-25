@@ -10,16 +10,16 @@ namespace Lucilvio.Ticket.Web.Chamados
 
     public class RepositorioDeClientesEmMemoria : IRepositorioDeClientes
     {
-        private static IList<DadosDoCliente> _clientes;
+        private IContexto _contexto;
 
-        public RepositorioDeClientesEmMemoria()
+        public RepositorioDeClientesEmMemoria(IContexto contexto)
         {
-            _clientes = new List<DadosDoCliente>();
+            this._contexto = contexto;
         }
 
         public DadosDoCliente BuscarPeloLogin(string login)
         {
-            return _clientes.FirstOrDefault(c => c.Login == login);
+            return this._contexto.Clientes.FirstOrDefault(c => c.Login == login);
         }
     }
 }

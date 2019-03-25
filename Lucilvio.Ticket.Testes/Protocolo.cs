@@ -11,7 +11,7 @@
             this._ultimoProtocoloGerado = ultimoProtocoloGerado;
         }
 
-        public int NumeroDoUltimoProcotoloGerado => int.Parse($"{this._ultimoProtocoloGerado}{this._ano}");
+        public string NumeroDoUltimoProcotoloGerado => $"{this._ultimoProtocoloGerado}{this._ano}";
 
         internal GeradorDeProtocolo NovoProtocolo()
         {
