@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Lucilvio.Ticket.Web.Chamados;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
@@ -43,22 +38,18 @@ namespace Lucilvio.Ticket.Web
 
             services.AddSingleton<IContexto, ContextoEmMemoria>();
 
-            services.AddSingleton<IRepositorioDeChamados>(provider =>
-            {
-                return new RepositorioDeChamadosEmMemoria(provider.GetService<IContexto>());
-            });
+            services.AddTransient<IRepositorioParaAberturaDeChamado, RepositorioParaAberturaDeChamado>();
+            services.AddTransient<AbrirChamado>();
 
-            services.AddSingleton<IRepositorioDeClientes>(provider =>
+            services.AddSingleton<IServicos>(provider =>
             {
-                return new RepositorioDeClientesEmMemoria(provider.GetService<IContexto>());
+                return new FabricaDeServicos(provider);
             });
 
             services.AddScoped<IBuscaDeChamados>(provider =>
             {
                 return new BuscaDeChamados(provider.GetService<IContexto>());
             });
-
-            services.AddTransient<IAdaptadorDeCliente, AdaptadorDeCliente>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

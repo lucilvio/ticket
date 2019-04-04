@@ -1,26 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using Lucilvio.Ticket.Testes;
+using System.Collections.Generic;
 
 namespace Lucilvio.Ticket.Web.Chamados
 {
     public interface IContexto
     {
-        IList<DadosDoChamado> Chamados { get; }
-        IList<DadosDoCliente> Clientes { get; }
+        IList<Chamado> Chamados { get; }
+        IList<Cliente> Clientes { get; }
     }
 
     public class ContextoEmMemoria : IContexto
     {
-        private IList<DadosDoChamado> _chamados;
-        private IList<DadosDoCliente> _clientes;
+        private IList<Chamado> _chamados;
+        private IList<Cliente> _clientes;
 
         public ContextoEmMemoria()
         {
-            this._chamados = new List<DadosDoChamado>();
-            this._clientes = new List<DadosDoCliente>();
+            this._chamados = new List<Chamado>();
+            this._clientes = new List<Cliente>() { new Cliente("login") };
         }
 
-        public IList<DadosDoChamado> Chamados => this._chamados;
+        public IList<Chamado> Chamados => this._chamados;
 
-        public IList<DadosDoCliente> Clientes => this._clientes;
+        public IList<Cliente> Clientes => this._clientes;
     }
 }

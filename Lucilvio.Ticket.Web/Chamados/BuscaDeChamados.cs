@@ -22,10 +22,10 @@ namespace Lucilvio.Ticket.Web.Chamados
         {
             return this._contexto.Chamados.Select(c => new ChamadoDaLista
             {
-                Cliente = c.Cliente,
+                Cliente = "",
                 Descricao = c.Descricao,
                 Protocolo = c.Protocolo,
-                DataDaAbertura = c.DataDeAbertura.ToString()
+                DataDaAbertura = ""
             }).ToList();
         }
     }

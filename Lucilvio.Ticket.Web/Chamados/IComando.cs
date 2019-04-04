@@ -1,6 +1,6 @@
 ﻿namespace Lucilvio.Ticket.Web.Chamados
 {
-    public interface ICasoDeUso
+    public interface IComando
     {
     }
 }
