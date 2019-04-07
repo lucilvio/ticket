@@ -1,5 +1,5 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Lucilvio.Ticket.Testes
 {
@@ -7,46 +7,46 @@ namespace Lucilvio.Ticket.Testes
     public class TestesDeCliente
     {
         private Cliente _cliente;
-        private GeradorDeProtocolo _geradorDeProtocolo;
+        private Protocolo.Gerador _geradorDeProtocolo;
         private string _descricaoDoChamado;
 
         [TestInitialize]
         public void Iniciar()
         {
-            this._cliente = new Cliente("teste");
-            this._geradorDeProtocolo = new GeradorDeProtocolo(2019, 0);
+            this._cliente = new Cliente("teste", "Teste");
+            this._geradorDeProtocolo = new Protocolo.Gerador(0);
             this._descricaoDoChamado = "Chamado de teste";
         }
 
         [TestMethod]
         public void ClienteAbreChamadoComADescricaoDoProblema()
         {
-            var novoChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, new SemNotificacao());
+            var novoChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo.NovoProtocolo(), this._descricaoDoChamado, new SemNotificacao());
 
             Assert.IsTrue(novoChamado != null);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaltaDescricaoDoProblema))]
+        [ExpectedException(typeof(ChamadoNaoPodeSerAbertoSemDescricao))]
         public void NaoAbreChamadoSemADescricaoDoProblema()
         {
-            var novoChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, string.Empty, new SemNotificacao());
+            var novoChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo.NovoProtocolo(), string.Empty, new SemNotificacao());
         }
 
         [TestMethod]
         public void ClienteRecebeProtocoloAoAbrirChamado()
         {
-            var novoChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, new SemNotificacao());
+            var novoChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo.NovoProtocolo(), this._descricaoDoChamado, new SemNotificacao());
 
             Assert.IsTrue(novoChamado != null);
-            Assert.IsTrue(!string.IsNullOrEmpty(novoChamado.Protocolo));
+            Assert.IsTrue(novoChamado.Protocolo == 20191);
         }
 
         [TestMethod]
         public void ClienteEhNotificadoViaEmailQuandoOChamadoEhAberto()
         {
             var notificacaoDeVerificacao = new NotificacaoDeVerificacao();
-            this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, notificacaoDeVerificacao);
+            this._cliente.AbrirChamado(this._geradorDeProtocolo.NovoProtocolo(), this._descricaoDoChamado, notificacaoDeVerificacao);
 
             Assert.IsTrue(notificacaoDeVerificacao.EnviouNotificacao);
         }
@@ -54,11 +54,13 @@ namespace Lucilvio.Ticket.Testes
         [TestMethod]
         public void GeraNumeroUnicoDeProtocoloParaCadaChamadoAberto()
         {
-            var chamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, new SemNotificacao());
-            var outroChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo, this._descricaoDoChamado, new SemNotificacao());
+            var chamado = this._cliente.AbrirChamado(this._geradorDeProtocolo.NovoProtocolo(), this._descricaoDoChamado, new SemNotificacao());
+            var outroChamado = this._cliente.AbrirChamado(this._geradorDeProtocolo.NovoProtocolo(), this._descricaoDoChamado, new SemNotificacao());
+            var outroChamado2 = this._cliente.AbrirChamado(this._geradorDeProtocolo.NovoProtocolo(), this._descricaoDoChamado, new SemNotificacao());
 
-            Assert.IsTrue(chamado.Protocolo == "12019");
-            Assert.IsTrue(outroChamado.Protocolo == "22019");
+            Assert.IsTrue(chamado.Protocolo == 20191);
+            Assert.IsTrue(outroChamado.Protocolo == 20192);
+            Assert.IsTrue(outroChamado2.Protocolo == 20193);
         }
     }
 

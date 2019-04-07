@@ -41,14 +41,11 @@ namespace Lucilvio.Ticket.Web
             services.AddTransient<IRepositorioParaAberturaDeChamado, RepositorioParaAberturaDeChamado>();
             services.AddTransient<AbrirChamado>();
 
+            services.AddTransient<ListarChamados>();
+
             services.AddSingleton<IServicos>(provider =>
             {
                 return new FabricaDeServicos(provider);
-            });
-
-            services.AddScoped<IBuscaDeChamados>(provider =>
-            {
-                return new BuscaDeChamados(provider.GetService<IContexto>());
             });
         }
 

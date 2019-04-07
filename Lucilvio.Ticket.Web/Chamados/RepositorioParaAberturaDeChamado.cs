@@ -25,7 +25,7 @@ namespace Lucilvio.Ticket.Web.Chamados
         public int PegarProtocoloDoUltimoChamadoAberto()
         {
             var ultimaChamadoCriado = this._contexto.Chamados.LastOrDefault();
-            return ultimaChamadoCriado == null ? 0 : int.Parse(ultimaChamadoCriado.Protocolo);
+            return ultimaChamadoCriado == null ? 0 : ultimaChamadoCriado.Protocolo;
         }
     }
 }

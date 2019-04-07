@@ -6,20 +6,17 @@ namespace Lucilvio.Ticket.Web.Chamados
     public class ChamadosController : Controller
     {
         private readonly IServicos _servicos;
-        private readonly IBuscaDeChamados _buscaDeChamados;
 
-        public ChamadosController(IServicos fabricaDeServicos, 
-            IBuscaDeChamados buscaDeChamados)
+        public ChamadosController(IServicos servicos)
         {
-            this._servicos = fabricaDeServicos;            
-            this._buscaDeChamados = buscaDeChamados;
+            this._servicos = servicos;            
         }
 
         [HttpGet]
         [Route("")]
         public IActionResult Lista()
         {
-            return View(this._buscaDeChamados.Executar());
+            return View(this._servicos.EnviarQuery(new QueryParaListarChamados(0, 10)));
         }
 
         [HttpGet]

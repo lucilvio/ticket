@@ -3,5 +3,6 @@
     public interface IServicos
     {
         void Enviar(IComando comando);
+        dynamic EnviarQuery(IQuery query); 
     }
 }

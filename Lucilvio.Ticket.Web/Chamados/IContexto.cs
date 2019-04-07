@@ -17,7 +17,7 @@ namespace Lucilvio.Ticket.Web.Chamados
         public ContextoEmMemoria()
         {
             this._chamados = new List<Chamado>();
-            this._clientes = new List<Cliente>() { new Cliente("login") };
+            this._clientes = new List<Cliente>() { new Cliente("login", "Teste") };
         }
 
         public IList<Chamado> Chamados => this._chamados;

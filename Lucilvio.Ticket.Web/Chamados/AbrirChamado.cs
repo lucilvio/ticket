@@ -17,9 +17,9 @@ namespace Lucilvio.Ticket.Web.Chamados
             var cliente = this._repositorio.PegarClientePeloLogin("login");
             var ultimoProtocoloDeChamadoCriado = this._repositorio.PegarProtocoloDoUltimoChamadoAberto();
 
-            var geradorDeProtocolo = new GeradorDeProtocolo(DateTime.Now.Year, ultimoProtocoloDeChamadoCriado);
+            var geradorDeProtocolo = new Protocolo.Gerador(ultimoProtocoloDeChamadoCriado);
 
-            var novoChamado = cliente.AbrirChamado(geradorDeProtocolo, comando.Descricao, new SemNotificacao());
+            var novoChamado = cliente.AbrirChamado(geradorDeProtocolo.NovoProtocolo(), comando.Descricao, new SemNotificacao());
 
             this._repositorio.AbrirChamado(novoChamado);
         }

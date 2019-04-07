@@ -8,14 +8,14 @@ namespace Lucilvio.Ticket.Testes
         {
         }
 
-        internal Chamado AbrirChamado(Cliente cliente, GeradorDeProtocolo geradorDeProtocolo, string descricao)
+        internal Chamado AbrirChamado(Cliente cliente, Protocolo.Gerador geradorDeProtocolo, string descricao)
         {
-            return new Chamado(cliente, geradorDeProtocolo, descricao);
+            return new Chamado(cliente, geradorDeProtocolo.NovoProtocolo(), descricao);
         }
 
         internal void ResponderAoChamado(Chamado novoChamado, string resposta)
         {
-            novoChamado.AdicionarResposta(new Resposta(this, DateTime.Now, resposta));
+            novoChamado.AdicionarResposta(this, resposta);
         }
     }
 }

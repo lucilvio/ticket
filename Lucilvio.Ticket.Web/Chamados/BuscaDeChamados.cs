@@ -4,37 +4,21 @@ using System.Linq;
 
 namespace Lucilvio.Ticket.Web.Chamados
 {
-    public interface IBuscaDeChamados
-    {
-        IReadOnlyList<ChamadoDaLista> Executar();
-    }
 
-    internal class BuscaDeChamados : IBuscaDeChamados
+    internal class ListarChamados : IBusca<IReadOnlyList<ChamadoDaLista>, QueryParaListarChamados>
     {
         private readonly IContexto _contexto;
 
-        public BuscaDeChamados(IContexto contexto)
+        public ListarChamados(IContexto contexto)
         {
             this._contexto = contexto;
         }
 
-        public IReadOnlyList<ChamadoDaLista> Executar()
+        public IReadOnlyList<ChamadoDaLista> Executar(QueryParaListarChamados query)
         {
-            return this._contexto.Chamados.Select(c => new ChamadoDaLista
-            {
-                Cliente = "",
-                Descricao = c.Descricao,
-                Protocolo = c.Protocolo,
-                DataDaAbertura = ""
-            }).ToList();
-        }
-    }
+            var chamados = this._contexto.Chamados.Skip(query.Pagina * query.RegistrosPorPagina).Take(query.RegistrosPorPagina);
 
-    public class ChamadoDaLista
-    {
-        public string Protocolo { get; set; }
-        public string Descricao { get; set; }
-        public string Cliente { get; set; }
-        public string DataDaAbertura { get; set; }
+            return chamados.Select(c => new ChamadoDaLista(c.Protocolo, c.Descricao, c.Cliente.Nome, c.DataDaAbertura)).ToList();
+        }
     }
 }

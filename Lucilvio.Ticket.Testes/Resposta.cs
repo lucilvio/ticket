@@ -4,15 +4,18 @@ namespace Lucilvio.Ticket.Testes
 {
     internal class Resposta
     {
-        private Operador operador;
-        private DateTime now;
-        private string resposta;
+        private Operador _operador;
+        private DateTime _data;
+        private string _resposta;
 
-        public Resposta(Operador operador, DateTime now, string resposta)
+        private readonly Chamado _chamado;
+
+        public Resposta(Chamado chamado, Operador operador, string resposta)
         {
-            this.operador = operador;
-            this.now = now;
-            this.resposta = resposta;
+            this._chamado = chamado;
+            this._operador = operador;
+            this._data = DateTime.Now;
+            this._resposta = resposta;
         }
     }
 }
