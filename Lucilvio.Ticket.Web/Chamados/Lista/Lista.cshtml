@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     Layout = "_Layout";
 }
 
@@ -12,16 +12,18 @@
                 <th>Cliente</th>
                 <th>Descricao</th>
                 <th>Data Da Abertura</th>
+                <th></th>
             </tr>
 
             @foreach (var chamado in @Model)
             {
-            <tr>
-                <td> @chamado.Protocolo </td>
-                <td> @chamado.Cliente </td>
-                <td> @chamado.Descricao </td>
-                <td> @chamado.DataDaAbertura </td>
-            </tr>
+                <tr>
+                    <td> @chamado.Protocolo </td>
+                    <td> @chamado.Cliente </td>
+                    <td> @chamado.Descricao </td>
+                    <td> @chamado.DataDaAbertura </td>
+                    <td> <a class="btn btn-primary btn-sm" href="Chamados/Ver/@chamado.Protocolo"> Ver </a> </td>
+                </tr>
             }
         </thsead>
     </table>

@@ -1,11 +1,23 @@
+using Lucilvio.Ticket.Buscas;
+using Lucilvio.Ticket.Buscas.ListarChamados;
+using Lucilvio.Ticket.Buscas.PegarChamadoPeloProtocolo;
+using Lucilvio.Ticket.Infra.RepositoriosEf;
+using Lucilvio.Ticket.Infra.RepositoriosEf.ListarChamados;
+using Lucilvio.Ticket.Infra.RepositoriosEf.PegarChamadoPorProtocolo;
+using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado;
+using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaResponderChamado;
+using Lucilvio.Ticket.Servicos.AbrirChamado;
+using Lucilvio.Ticket.Servicos.ResponderChamado;
 using Lucilvio.Ticket.Web.Chamados;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 
 namespace Lucilvio.Ticket.Web
 {
@@ -36,12 +48,18 @@ namespace Lucilvio.Ticket.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSingleton<IContexto, ContextoEmMemoria>();
+            services.AddDbContext<Contexto>(opt =>
+            {
+                opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=lucilvio.ticket;Trusted_Connection=True;MultipleActiveResultSets=true;Connection Timeout=300;");
+            }, ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             services.AddTransient<IRepositorioParaAberturaDeChamado, RepositorioParaAberturaDeChamado>();
+            services.AddTransient<IRepositorioParaResponderChamado, RepositorioParaResponderChamado>();
             services.AddTransient<AbrirChamado>();
+            services.AddTransient<ResponderChamado>();
 
-            services.AddTransient<ListarChamados>();
+            services.AddTransient<IListarChamados, ListarChamados>();
+            services.AddTransient<IPegarChamadoPorProtocolo, PegarChamadoPorProtocolo>();
 
             services.AddSingleton<IServicos>(provider =>
             {

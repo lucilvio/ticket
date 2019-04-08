@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Lucilvio.Ticket.Dominio.Chamados;
+using Lucilvio.Ticket.Dominio.Clientes;
+using Lucilvio.Ticket.Dominio.Operadores;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Lucilvio.Ticket.Testes
 {
@@ -8,7 +11,7 @@ namespace Lucilvio.Ticket.Testes
         [TestMethod]
         public void AbreChamadoEmNomeDoCliente()
         {
-            var operador = new Operador();
+            var operador = new Operador("Teste", "Teste");
             var novoChamado = operador.AbrirChamado(new Cliente("Teste", "Teste"), new Protocolo.Gerador(0), "Chamado de teste");
 
             Assert.IsNotNull(novoChamado);
@@ -18,9 +21,9 @@ namespace Lucilvio.Ticket.Testes
         public void RespondeAoChamado()
         {
             var cliente = new Cliente("Teste", "Teste");
-            var novoChamado = cliente.AbrirChamado(new Protocolo.Gerador(0).NovoProtocolo(), "Chamado de teste", new SemNotificacao());
+            var novoChamado = cliente.AbrirChamado(new Protocolo.Gerador(0).NovoProtocolo(), "Chamado de teste");
 
-            var operador = new Operador();
+            var operador = new Operador("Teste", "Teste");
             operador.ResponderAoChamado(novoChamado, "Resposta de teste");
         }
     }

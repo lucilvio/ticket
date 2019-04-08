@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<h2> Chamado - @Model.Protocolo </h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="AbertoPor">Aberto Por</label>
+                <input type="text" class="form-control" name="AbertoPor" value="@Model.Cliente" />
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="AbertoPor">Aberto Em</label>
+                <input type="text" class="form-control" name="AbertoPor" value="@Model.DataDaAbertura" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <textarea class="form-control">@Model.Descricao</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resposta">Responder</button> 
+    </div>
+</div>
+
+<div class="container">
+
+    @foreach (var resposta in Model.Respostas)
+    {
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="RespondidoPor">Respondido Por</label>
+                <input type="text" class="form-control" name="RespondidoPor" value="@resposta.Operador" />
+            </div>
+            <div class="col-lg-6">
+                <label for="Respondido Em">Respondido Em</label>
+                <input type="text" class="form-control" name="RespondidoEm" value="@resposta.Data" />
+            </div>
+            <div class="col-lg-12">
+                <label for="Resposta">Resposta</label>
+                <input type="text" class="form-control" name="Resposta" value="@resposta.Resposta" />
+            </div>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="resposta" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Resposta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="@Url.Action("Responder")" method="post">
+                <input type="hidden" name="Chamado" id="Chamado" value="@Model.Protocolo" />
+                <input type="hidden" name="Operador" id="Operador" value="operador" />
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Texto:</label>
+                        <textarea class="form-control" id="message-text" name="Texto"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Enviar Resposta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

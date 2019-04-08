@@ -13,6 +13,9 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\Lucilvio.Ticket.Buscas\Lucilvio.Ticket.Buscas.csproj" />
+    <ProjectReference Include="..\Lucilvio.Ticket.Infra.RepositoriosEf\Lucilvio.Ticket.Infra.RepositoriosEf.csproj" />
+    <ProjectReference Include="..\Lucilvio.Ticket.Servicos\Lucilvio.Ticket.Servicos.csproj" />
     <ProjectReference Include="..\Lucilvio.Ticket.Testes\Lucilvio.Ticket.Testes.csproj" />
   </ItemGroup>
 

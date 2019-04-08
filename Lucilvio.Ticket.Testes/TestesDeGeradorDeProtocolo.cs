@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Lucilvio.Ticket.Dominio.Chamados;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Lucilvio.Ticket.Testes
 {

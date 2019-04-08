@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Lucilvio.Ticket.Buscas.ListarChamados;
+using Lucilvio.Ticket.Buscas.PegarChamadoPeloProtocolo;
+using Lucilvio.Ticket.Servicos.AbrirChamado;
+using Lucilvio.Ticket.Servicos.ResponderChamado;
+using Lucilvio.Ticket.Web.Chamados.Novo;
+using Lucilvio.Ticket.Web.Chamados.Responder;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Lucilvio.Ticket.Web.Chamados
 {
@@ -30,9 +36,25 @@ namespace Lucilvio.Ticket.Web.Chamados
         [Route("Novo")]
         public IActionResult Novo(DadosDoNovoChamado chamado)
         {
-            this._servicos.Enviar(new ComandoParaAbrirChamado(chamado.Cliente, chamado.Descricao));
+            this._servicos.Enviar(new ComandoParaAbrirChamado("teste", chamado.Descricao));
 
             return RedirectToAction(nameof(Lista));
+        }
+
+        [HttpGet]
+        [Route("Ver/{protocolo}")]
+        public IActionResult Ver(int protocolo)
+        {
+            var chamado = this._servicos.EnviarQuery(new QueryParaPegarChamadoPorProtocolo(protocolo));
+            return View(chamado);
+        }
+
+        [HttpPost]
+        [Route("Responder")]
+        public IActionResult Responder(DadosDaResposta resposta)
+        {
+            this._servicos.Enviar(new ComandoParaResponderChamado(resposta.Texto, int.Parse(resposta.Chamado), resposta.Operador));
+            return RedirectToAction(nameof(Ver), new { protocolo = resposta.Chamado });
         }
     }
 }
