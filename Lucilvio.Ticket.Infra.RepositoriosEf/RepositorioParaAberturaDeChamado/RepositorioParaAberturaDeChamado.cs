@@ -20,7 +20,7 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado
 
             if (clienteDeTeste == null)
             {
-                this._contexto.Clientes.Add(new Cliente("teste", "teste"));
+                this._contexto.Clientes.Add(new Cliente("teste", "teste", "123456"));
                 this._contexto.SaveChanges();
 
                 clienteDeTeste = this._contexto.Clientes.FirstOrDefault(c => c.Usuario.Login == login);

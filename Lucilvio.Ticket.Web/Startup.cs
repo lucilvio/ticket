@@ -1,12 +1,16 @@
 using Lucilvio.Ticket.Buscas;
 using Lucilvio.Ticket.Buscas.ListarChamados;
+using Lucilvio.Ticket.Buscas.ListarOperadores;
 using Lucilvio.Ticket.Buscas.PegarChamadoPeloProtocolo;
 using Lucilvio.Ticket.Infra.RepositoriosEf;
 using Lucilvio.Ticket.Infra.RepositoriosEf.ListarChamados;
+using Lucilvio.Ticket.Infra.RepositoriosEf.ListarOperadores;
 using Lucilvio.Ticket.Infra.RepositoriosEf.PegarChamadoPorProtocolo;
 using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado;
+using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaCadastroDeOperador;
 using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaResponderChamado;
 using Lucilvio.Ticket.Servicos.AbrirChamado;
+using Lucilvio.Ticket.Servicos.CadastrarOperador;
 using Lucilvio.Ticket.Servicos.ResponderChamado;
 using Lucilvio.Ticket.Web.Chamados;
 using Microsoft.AspNetCore.Builder;
@@ -55,11 +59,15 @@ namespace Lucilvio.Ticket.Web
 
             services.AddTransient<IRepositorioParaAberturaDeChamado, RepositorioParaAberturaDeChamado>();
             services.AddTransient<IRepositorioParaResponderChamado, RepositorioParaResponderChamado>();
-            services.AddTransient<AbrirChamado>();
-            services.AddTransient<ResponderChamado>();
+            services.AddTransient<IRepositorioParaCadastroDeOperador, RepositorioParaCadastroDeOperador>();
 
             services.AddTransient<IListarChamados, ListarChamados>();
+            services.AddTransient<IListarOperadores, ListarOperadores>();
             services.AddTransient<IPegarChamadoPorProtocolo, PegarChamadoPorProtocolo>();
+
+            services.AddTransient<AbrirChamado>();
+            services.AddTransient<ResponderChamado>();
+            services.AddTransient<CadastrarOperador>();
 
             services.AddSingleton<IServicos>(provider =>
             {

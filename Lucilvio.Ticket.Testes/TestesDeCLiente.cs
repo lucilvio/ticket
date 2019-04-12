@@ -15,7 +15,7 @@ namespace Lucilvio.Ticket.Testes
         [TestInitialize]
         public void Iniciar()
         {
-            this._cliente = new Cliente("teste", "Teste");
+            this._cliente = new Cliente("teste", "Teste", "123456");
             this._geradorDeProtocolo = new Protocolo.Gerador(0);
             this._descricaoDoChamado = "Chamado de teste";
         }

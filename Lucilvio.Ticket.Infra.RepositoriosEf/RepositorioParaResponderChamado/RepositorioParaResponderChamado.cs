@@ -25,7 +25,7 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaResponderChamado
 
             if(operador == null)
             {
-                this._contexto.Operadores.Add(new Operador("operador", "operador"));
+                this._contexto.Operadores.Add(new Operador("operador", "operador@operador.com", "123456"));
                 this._contexto.SaveChanges();
 
                 operador = this._contexto.Operadores.FirstOrDefault(o => o.Usuario.Login == login);

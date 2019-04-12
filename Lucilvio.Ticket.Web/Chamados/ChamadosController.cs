@@ -4,6 +4,7 @@ using Lucilvio.Ticket.Servicos.AbrirChamado;
 using Lucilvio.Ticket.Servicos.ResponderChamado;
 using Lucilvio.Ticket.Web.Chamados.Novo;
 using Lucilvio.Ticket.Web.Chamados.Responder;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lucilvio.Ticket.Web.Chamados
@@ -26,15 +27,15 @@ namespace Lucilvio.Ticket.Web.Chamados
         }
 
         [HttpGet]
-        [Route("Novo")]
-        public IActionResult Novo()
+        [Route("Cadastro")]
+        public IActionResult Cadastro()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("Novo")]
-        public IActionResult Novo(DadosDoNovoChamado chamado)
+        [Route("Cadastrar")]
+        public IActionResult Cadastrar(DadosDoNovoChamado chamado)
         {
             this._servicos.Enviar(new ComandoParaAbrirChamado("teste", chamado.Descricao));
 

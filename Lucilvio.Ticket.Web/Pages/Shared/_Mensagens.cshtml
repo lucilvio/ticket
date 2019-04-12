@@ -1,0 +1,12 @@
+﻿
+
+@if (TempData.ContainsKey("MensagemDeSucesso"))
+{
+    <script>toastr.info('@TempData["MensagemDeSucesso"]');</script>
+}
+else if (TempData.ContainsKey("MensagemDeErro"))
+{
+    <script>toastr.error('@TempData["MensagemDeErro"]')</script>
+}
+
+@{ TempData.Clear(); }  

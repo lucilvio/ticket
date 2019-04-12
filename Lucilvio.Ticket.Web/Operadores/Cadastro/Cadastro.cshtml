@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<h2> Novo Operador </h2>
+
+<div class="container">
+    <form action="@Url.Action("Cadastrar", "Operadores")" method="POST">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="Nome">Nome</label>
+                    <input class="form-control" name="Nome" required />
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="Email">Email</label>
+                    <input class="form-control" name="Email" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="Senha">Senha</label>
+                    <input type="password" class="form-control" name="Senha" required />
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="ConfirmacaoDaSenha">Confirmação da Senhas</label>
+                    <input type="password" class="form-control" name="ConfirmacaoDaSenha" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-primary"> Cadastrar </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -12,10 +12,10 @@ namespace Lucilvio.Ticket.Dominio.Clientes
             this.Chamados = new List<Chamado>();
         }
 
-        public Cliente(string login, string nome) : this()
+        public Cliente(string login, string nome, string senha) : this()
         {
             this.Nome = nome;
-            this.Usuario = new Usuario(login);
+            this.Usuario = new Usuario(login, senha);
         }
 
         public string Nome { get; set; }

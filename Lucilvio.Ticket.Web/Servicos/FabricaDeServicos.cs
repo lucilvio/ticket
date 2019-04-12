@@ -1,8 +1,8 @@
-﻿using Lucilvio.Ticket.Buscas;
-using Lucilvio.Ticket.Servicos;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using Lucilvio.Ticket.Buscas;
+using Lucilvio.Ticket.Servicos;
 
 namespace Lucilvio.Ticket.Web.Chamados
 {

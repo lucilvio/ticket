@@ -1,6 +1,7 @@
 ﻿using Lucilvio.Ticket.Dominio.Chamados;
 using Lucilvio.Ticket.Dominio.Clientes;
 using Lucilvio.Ticket.Dominio.Usuarios;
+using System;
 
 namespace Lucilvio.Ticket.Dominio.Operadores
 {
@@ -10,14 +11,19 @@ namespace Lucilvio.Ticket.Dominio.Operadores
         {
         }
 
-        public Operador(string nome, string login)
+        public Operador(string nome, string email, string senha)
         {
             this.Nome = nome;
-            this.Usuario = new Usuario(login);
+            this.Email = email;
+            this.Usuario = new Usuario(email, senha);
+
+            this.DataDoCadastro = DateTime.Now;
         }
 
-        public string Nome { get; }
-        public Usuario Usuario { get; set; }
+        public string Nome { get; private set; }
+        public string Email { get; private set; }
+        public Usuario Usuario { get; private set; }
+        public DateTime DataDoCadastro { get; private set; }
 
         public Chamado AbrirChamado(Cliente cliente, Protocolo.Gerador geradorDeProtocolo, string descricao)
         {

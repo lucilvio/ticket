@@ -2,15 +2,10 @@
 
 namespace Lucilvio.Ticket.Buscas.ListarChamados
 {
-    public class QueryParaListarChamados : IQuery
+    public class QueryParaListarChamados : QueryPaginaval
     {
-        public QueryParaListarChamados(int pagina, int registrosPorPagina)
+        public QueryParaListarChamados(int pagina, int registrosPorPagina) : base(pagina, registrosPorPagina)
         {
-            this.Pagina = pagina;
-            this.RegistrosPorPagina = registrosPorPagina;
         }
-
-        public int Pagina { get; set; }
-        public int RegistrosPorPagina { get; set; }
     }
 }
