@@ -1,7 +1,7 @@
-﻿using Lucilvio.Ticket.Dominio.Chamados;
+﻿using System;
+using Lucilvio.Ticket.Dominio.Chamados;
 using Lucilvio.Ticket.Dominio.Clientes;
 using Lucilvio.Ticket.Dominio.Usuarios;
-using System;
 
 namespace Lucilvio.Ticket.Dominio.Operadores
 {
@@ -15,7 +15,7 @@ namespace Lucilvio.Ticket.Dominio.Operadores
         {
             this.Nome = nome;
             this.Email = email;
-            this.Usuario = new Usuario(email, senha);
+            this.Usuario = Usuario.Operador(nome, email, email, senha);
 
             this.DataDoCadastro = DateTime.Now;
         }

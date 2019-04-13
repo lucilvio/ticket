@@ -11,6 +11,7 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.Mapeamentos
             builder.ToTable("Usuarios");
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Property(p => p.Login).HasMaxLength(128);
+            builder.Property(p => p.Perfil).HasConversion<int>();
         }
     }
 }

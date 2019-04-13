@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lucilvio.Ticket.Servicos.EntrarNoSistema
+﻿namespace Lucilvio.Ticket.Servicos.EntrarNoSistema
 {
     public class ComandoParaEntrarNoSistema : IComando
     {
-        public ComandoParaEntrarNoSistema(string usuario, string senha)
+        public ComandoParaEntrarNoSistema(string login, string senha)
         {
-            this.Usuario = usuario;
+            this.Login = login;
             this.Senha = senha;
         }
 
-        public string Usuario { get; }
+        public string Login { get; }
         public string Senha { get; }
     }
 }

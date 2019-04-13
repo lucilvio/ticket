@@ -1,4 +1,4 @@
-﻿namespace Lucilvio.Ticket.Servicos.Comum
+﻿namespace Lucilvio.Ticket.Servicos.Comum.ServicosExternos.Autenticacao
 {
     public interface IServicoDeNotificacao
     {

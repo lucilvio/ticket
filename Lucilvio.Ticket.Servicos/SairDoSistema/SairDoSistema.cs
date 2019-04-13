@@ -1,9 +1,5 @@
-﻿using Lucilvio.Ticket.Servicos.Comum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Lucilvio.Ticket.Servicos.Comum.ServicosExternos.Autenticacao;
 
 namespace Lucilvio.Ticket.Servicos.SairDoSistema
 {

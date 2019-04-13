@@ -1,5 +1,6 @@
-﻿using Lucilvio.Ticket.Servicos.Comum;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Lucilvio.Ticket.Servicos.Comum;
+using Lucilvio.Ticket.Servicos.Comum.ServicosExternos.Autenticacao;
 
 namespace Lucilvio.Ticket.Servicos.EntrarNoSistema
 {
@@ -16,12 +17,12 @@ namespace Lucilvio.Ticket.Servicos.EntrarNoSistema
 
         public async Task Executar(ComandoParaEntrarNoSistema comando)
         {
-            var usuario = this._repositorio.PegarUsuarioPeloLoginESenha(comando.Usuario, comando.Senha);
+            var usuario = this._repositorio.PegarUsuarioPeloLoginESenha(comando.Login, comando.Senha);
 
             if (usuario == null)
                 throw new UsuarioOuSenhaInvalidos();
-
-            await this._servicoDeSeguranca.AutenticarUsuario(usuario);
+            
+            await this._servicoDeSeguranca.Autenticar(new DadosDeAutenticacao(usuario.Nome, usuario.Login, usuario.Email, usuario.Perfil.ToString()));
         }
     }
 }

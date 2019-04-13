@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Lucilvio.Ticket.Servicos.EntrarNoSistema
+namespace Lucilvio.Ticket.Servicos.Comum
 {
     [Serializable]
     internal class UsuarioOuSenhaInvalidos : ExcecaoDeNegocio

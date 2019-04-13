@@ -1,22 +1,27 @@
-using Lucilvio.Ticket.Buscas;
 using Lucilvio.Ticket.Buscas.ListarChamados;
+using Lucilvio.Ticket.Buscas.ListarClientes;
 using Lucilvio.Ticket.Buscas.ListarOperadores;
 using Lucilvio.Ticket.Buscas.PegarChamadoPeloProtocolo;
 using Lucilvio.Ticket.Infra.RepositoriosEf;
 using Lucilvio.Ticket.Infra.RepositoriosEf.ListarChamados;
+using Lucilvio.Ticket.Infra.RepositoriosEf.ListarClientes;
 using Lucilvio.Ticket.Infra.RepositoriosEf.ListarOperadores;
 using Lucilvio.Ticket.Infra.RepositoriosEf.PegarChamadoPorProtocolo;
 using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado;
+using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaCadastroDeCliente;
 using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaCadastroDeOperador;
 using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaEntrarNoSistema;
 using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaResponderChamado;
 using Lucilvio.Ticket.Infra.SegurancaPorCookie;
 using Lucilvio.Ticket.Servicos.AbrirChamado;
+using Lucilvio.Ticket.Servicos.CadastrarCliente;
 using Lucilvio.Ticket.Servicos.CadastrarOperador;
-using Lucilvio.Ticket.Servicos.Comum;
+using Lucilvio.Ticket.Servicos.Comum.ServicosExternos.Autenticacao;
 using Lucilvio.Ticket.Servicos.EntrarNoSistema;
+using Lucilvio.Ticket.Servicos.EntrarNoSistemaComoCliente;
 using Lucilvio.Ticket.Servicos.ResponderChamado;
 using Lucilvio.Ticket.Servicos.SairDoSistema;
+using Lucilvio.Ticket.Web.Autorizacao;
 using Lucilvio.Ticket.Web.Chamados;
 using Lucilvio.Ticket.Web.Filtros;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -29,7 +34,6 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 
 namespace Lucilvio.Ticket.Web
 {
@@ -62,11 +66,14 @@ namespace Lucilvio.Ticket.Web
             });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opcoes =>
-            {
+            { 
                 opcoes.LoginPath = "/Login";
             });
 
-            var tempDataProvider = 
+            services.AddAuthorization(opt =>
+            {
+                ConfiguracaoDePoliticas.Configurar(opt);
+            });
 
             services.AddMvc(opc =>
             {
@@ -83,9 +90,12 @@ namespace Lucilvio.Ticket.Web
             services.AddTransient<IRepositorioParaResponderChamado, RepositorioParaResponderChamado>();
             services.AddTransient<IRepositorioParaCadastroDeOperador, RepositorioParaCadastroDeOperador>();
             services.AddTransient<IRepositorioParaEntradaNoSistema, RepositorioParaEntrarNoSistema>();
+            services.AddTransient<IRepositorioParaCadastroDeCliente, RepositorioParaCadastroDeCliente>();
+
 
             services.AddTransient<IListarChamados, ListarChamados>();
             services.AddTransient<IListarOperadores, ListarOperadores>();
+            services.AddTransient<IListarClientes, ListarClientes>();
             services.AddTransient<IPegarChamadoPorProtocolo, PegarChamadoPorProtocolo>();
 
             services.AddTransient<IServicoDeAutenticacao>(p =>
@@ -94,10 +104,12 @@ namespace Lucilvio.Ticket.Web
             });
 
             services.AddTransient<EntrarNoSistema>();
+            services.AddTransient<EntrarNoSistemaComoCliente>();
             services.AddTransient<SairDoSistema>();
             services.AddTransient<AbrirChamado>();
             services.AddTransient<ResponderChamado>();
             services.AddTransient<CadastrarOperador>();
+            services.AddTransient<CadastrarCliente>();
 
             services.AddSingleton<IServicos>(provider =>
             {

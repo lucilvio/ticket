@@ -1,16 +1,15 @@
-﻿namespace Lucilvio.Ticket.Servicos.CadastrarOperador
+﻿using Lucilvio.Ticket.Servicos.Comum;
+
+namespace Lucilvio.Ticket.Servicos.CadastrarOperador
 {
     public class ComandoParaCadastrarOperador : IComando
     {
-        public ComandoParaCadastrarOperador(string nome, string email, string senha, string confirmacaoDaSenha)
+        public ComandoParaCadastrarOperador(string nome, string email, SenhasParaConferencia senhaParaConferecnia)
         {
             Nome = nome;
             Email = email;
 
-            if (senha != confirmacaoDaSenha)
-                throw new AsSenhasNaoConferem();
-
-            this.Senha = senha;
+            this.Senha = senhaParaConferecnia.Senha;
         }
 
         public string Nome { get; }
