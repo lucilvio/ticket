@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "_LayoutDeslogado";
+}
+
+<h2> Bem vindo ao Ticket! </h2>
+
+<div class="container">
+    <form action="@Url.Action("Entrar", "Login")" method="POST">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="Usuario">Usuario</label>
+                    <input class="form-control" name="Usuario" required />
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+            
+        </div>
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="Senha">Senha</label>
+                    <input type="password" class="form-control" name="Senha" required />
+                </div>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+        <div class="row text-center">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <button type="submit" class="btn btn-primary "> Entrar </button>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </form>
+</div>

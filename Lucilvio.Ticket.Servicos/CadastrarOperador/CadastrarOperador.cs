@@ -1,4 +1,5 @@
 ﻿using Lucilvio.Ticket.Dominio.Operadores;
+using System.Threading.Tasks;
 
 namespace Lucilvio.Ticket.Servicos.CadastrarOperador
 {
@@ -11,7 +12,7 @@ namespace Lucilvio.Ticket.Servicos.CadastrarOperador
             this._repositorio = repositorio;
         }
 
-        public void Executar(ComandoParaCadastrarOperador comando)
+        public async Task Executar(ComandoParaCadastrarOperador comando)
         {
             var novoOperador = new Operador(comando.Nome, comando.Email, comando.Senha);
 

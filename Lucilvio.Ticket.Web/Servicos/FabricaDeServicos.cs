@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Lucilvio.Ticket.Buscas;
 using Lucilvio.Ticket.Servicos;
 
@@ -15,13 +16,13 @@ namespace Lucilvio.Ticket.Web.Chamados
             this._container = container;
         }
 
-        public void Enviar(IComando comando)
+        public async Task Enviar(IComando comando)
         {
             var tipoDoServico = comando.GetType().Assembly.GetTypes()
                 .FirstOrDefault(t => ((TypeInfo)t).ImplementedInterfaces.Any(i => i.GenericTypeArguments.Contains(comando.GetType())));
             
             dynamic servico = this._container.GetService(tipoDoServico);
-            servico.Executar((dynamic)comando);
+            await servico.Executar((dynamic)comando);
         }
 
         public dynamic EnviarQuery(IQuery query)

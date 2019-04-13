@@ -7,19 +7,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Testes", "L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Web", "Lucilvio.Ticket.Web\Lucilvio.Ticket.Web.csproj", "{90775705-D04F-45C4-8394-954C3EA1710C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucilvio.Ticket.Dominio", "Lucilvio.Ticket.Dominio\Lucilvio.Ticket.Dominio.csproj", "{C8EB4151-97DD-4A84-A409-56534DCD55E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Dominio", "Lucilvio.Ticket.Dominio\Lucilvio.Ticket.Dominio.csproj", "{C8EB4151-97DD-4A84-A409-56534DCD55E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucilvio.Ticket.Servicos", "Lucilvio.Ticket.Servicos\Lucilvio.Ticket.Servicos.csproj", "{980501B1-3B2B-42C1-9C1A-4B12E6EA34ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Servicos", "Lucilvio.Ticket.Servicos\Lucilvio.Ticket.Servicos.csproj", "{980501B1-3B2B-42C1-9C1A-4B12E6EA34ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucilvio.Ticket.Buscas", "Lucilvio.Ticket.Buscas\Lucilvio.Ticket.Buscas.csproj", "{50783A35-1F96-46F4-A506-2786FADDA69A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Buscas", "Lucilvio.Ticket.Buscas\Lucilvio.Ticket.Buscas.csproj", "{50783A35-1F96-46F4-A506-2786FADDA69A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucilvio.Ticket.Infra.RepositoriosEf", "Lucilvio.Ticket.Infra.RepositoriosEf\Lucilvio.Ticket.Infra.RepositoriosEf.csproj", "{DA092E4A-F4DD-4730-B6D4-CE703636C4D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Infra.RepositoriosEf", "Lucilvio.Ticket.Infra.RepositoriosEf\Lucilvio.Ticket.Infra.RepositoriosEf.csproj", "{DA092E4A-F4DD-4730-B6D4-CE703636C4D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dominio", "Dominio", "{FB15A12A-98E0-48B8-8283-6FDFE1622890}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestrutura", "Infraestrutura", "{F2714DFD-A6F1-49BE-8F51-6F850AB38E81}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Teste", "Teste", "{0BC63F1A-0F32-4E4E-A103-5ED1F440C73F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucilvio.Ticket.Infra.SegurancaPorCookie", "Lucilvio.Ticket.Infra.SegurancaPorCookie\Lucilvio.Ticket.Infra.SegurancaPorCookie.csproj", "{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{DA092E4A-F4DD-4730-B6D4-CE703636C4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA092E4A-F4DD-4730-B6D4-CE703636C4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA092E4A-F4DD-4730-B6D4-CE703636C4D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{980501B1-3B2B-42C1-9C1A-4B12E6EA34ED} = {FB15A12A-98E0-48B8-8283-6FDFE1622890}
 		{50783A35-1F96-46F4-A506-2786FADDA69A} = {FB15A12A-98E0-48B8-8283-6FDFE1622890}
 		{DA092E4A-F4DD-4730-B6D4-CE703636C4D3} = {F2714DFD-A6F1-49BE-8F51-6F850AB38E81}
+		{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70} = {F2714DFD-A6F1-49BE-8F51-6F850AB38E81}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {37438323-71F1-49F5-9B81-362A08BC3B9E}

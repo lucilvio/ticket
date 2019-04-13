@@ -8,15 +8,23 @@ using Lucilvio.Ticket.Infra.RepositoriosEf.ListarOperadores;
 using Lucilvio.Ticket.Infra.RepositoriosEf.PegarChamadoPorProtocolo;
 using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado;
 using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaCadastroDeOperador;
+using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaEntrarNoSistema;
 using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaResponderChamado;
+using Lucilvio.Ticket.Infra.SegurancaPorCookie;
 using Lucilvio.Ticket.Servicos.AbrirChamado;
 using Lucilvio.Ticket.Servicos.CadastrarOperador;
+using Lucilvio.Ticket.Servicos.Comum;
+using Lucilvio.Ticket.Servicos.EntrarNoSistema;
 using Lucilvio.Ticket.Servicos.ResponderChamado;
+using Lucilvio.Ticket.Servicos.SairDoSistema;
 using Lucilvio.Ticket.Web.Chamados;
+using Lucilvio.Ticket.Web.Filtros;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +45,9 @@ namespace Lucilvio.Ticket.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession();
+            services.AddHttpContextAccessor();
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -50,7 +61,18 @@ namespace Lucilvio.Ticket.Web
                 ro.ViewLocationFormats.Add("/{1}/{0}" + RazorViewEngine.ViewExtension);
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opcoes =>
+            {
+                opcoes.LoginPath = "/Login";
+            });
+
+            var tempDataProvider = 
+
+            services.AddMvc(opc =>
+            {
+                opc.Filters.Add(new AuthorizeFilter());
+                opc.Filters.Add(new TratarExcecoesDeNegocio());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<Contexto>(opt =>
             {
@@ -60,11 +82,19 @@ namespace Lucilvio.Ticket.Web
             services.AddTransient<IRepositorioParaAberturaDeChamado, RepositorioParaAberturaDeChamado>();
             services.AddTransient<IRepositorioParaResponderChamado, RepositorioParaResponderChamado>();
             services.AddTransient<IRepositorioParaCadastroDeOperador, RepositorioParaCadastroDeOperador>();
+            services.AddTransient<IRepositorioParaEntradaNoSistema, RepositorioParaEntrarNoSistema>();
 
             services.AddTransient<IListarChamados, ListarChamados>();
             services.AddTransient<IListarOperadores, ListarOperadores>();
             services.AddTransient<IPegarChamadoPorProtocolo, PegarChamadoPorProtocolo>();
 
+            services.AddTransient<IServicoDeAutenticacao>(p =>
+            {
+                return new ServicoDeAutenticacaoViaCookie(p.GetService<IHttpContextAccessor>().HttpContext);
+            });
+
+            services.AddTransient<EntrarNoSistema>();
+            services.AddTransient<SairDoSistema>();
             services.AddTransient<AbrirChamado>();
             services.AddTransient<ResponderChamado>();
             services.AddTransient<CadastrarOperador>();
@@ -89,10 +119,12 @@ namespace Lucilvio.Ticket.Web
                 app.UseHsts();
             }
 
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

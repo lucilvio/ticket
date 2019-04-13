@@ -1,4 +1,5 @@
 ﻿using Lucilvio.Ticket.Dominio.Chamados;
+using System.Threading.Tasks;
 
 namespace Lucilvio.Ticket.Servicos.AbrirChamado
 {
@@ -11,7 +12,7 @@ namespace Lucilvio.Ticket.Servicos.AbrirChamado
             this._repositorio = repositorio;
         }
 
-        public void Executar(ComandoParaAbrirChamado comando)
+        public async Task Executar(ComandoParaAbrirChamado comando)
         {
             var cliente = this._repositorio.PegarClientePeloLogin(comando.Cliente);
 

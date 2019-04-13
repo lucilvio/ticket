@@ -1,7 +1,9 @@
-﻿namespace Lucilvio.Ticket.Servicos
+﻿using System.Threading.Tasks;
+
+namespace Lucilvio.Ticket.Servicos
 {
     public interface IServico<TComando> where TComando : IComando
     {
-        void Executar(TComando comando);
+        Task Executar(TComando comando);
     }
 }
