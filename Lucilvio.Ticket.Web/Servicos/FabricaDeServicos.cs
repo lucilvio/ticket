@@ -16,13 +16,24 @@ namespace Lucilvio.Ticket.Web.Chamados
             this._container = container;
         }
 
-        public async Task Enviar(IComando comando)
+        public void Enviar(IComando comando)
         {
-            var tipoDoServico = comando.GetType().Assembly.GetTypes()
-                .FirstOrDefault(t => ((TypeInfo)t).ImplementedInterfaces.Any(i => i.GenericTypeArguments.Contains(comando.GetType())));
-            
-            dynamic servico = this._container.GetService(tipoDoServico);
-            await servico.Executar((dynamic)comando);
+            dynamic servico = this.PegarServicoPeloComando(comando);
+            servico.Executar((dynamic)comando);
+        }
+
+        public async Task EnviarAsync(IComando comando)
+        {
+            dynamic servico = this.PegarServicoPeloComando(comando);
+
+            if(servico.GetType().CustomAttributes.Any())
+            {
+
+            }
+            else
+            {
+                await servico.Executar((dynamic)comando);
+            }
         }
 
         public dynamic EnviarQuery(IQuery query)
@@ -32,6 +43,14 @@ namespace Lucilvio.Ticket.Web.Chamados
 
             dynamic busca = this._container.GetService(tipoDaBusca);
             return busca.Executar((dynamic)query);
+        }
+
+        private dynamic PegarServicoPeloComando(IComando comando)
+        {
+            var tipoDoServico = comando.GetType().Assembly.GetTypes()
+                .FirstOrDefault(t => ((TypeInfo)t).ImplementedInterfaces.Any(i => i.GenericTypeArguments.Contains(comando.GetType())));
+
+            return this._container.GetService(tipoDoServico);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Lucilvio.Ticket.Servicos.AbrirChamado
             this._repositorio = repositorio;
         }
 
-        public async Task Executar(ComandoParaAbrirChamado comando)
+        public void Executar(ComandoParaAbrirChamado comando)
         {
             var cliente = this._repositorio.PegarClientePeloLogin(comando.Cliente);
 

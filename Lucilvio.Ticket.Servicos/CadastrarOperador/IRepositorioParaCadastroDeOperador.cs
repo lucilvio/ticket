@@ -2,9 +2,10 @@
 
 namespace Lucilvio.Ticket.Servicos.CadastrarOperador
 {
-    public interface IRepositorioParaCadastroDeOperador
+    public interface IRepositorioParaCadastroDeOperador : IRepositorio
     {
         void AdicionarOperador(Operador operador);
         void Persistir();
+        Operador PegarOperadorPorEmail(string email);
     }
 }

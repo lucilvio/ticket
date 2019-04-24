@@ -1,26 +1,12 @@
-using Lucilvio.Ticket.Buscas.ListarChamados;
-using Lucilvio.Ticket.Buscas.ListarClientes;
-using Lucilvio.Ticket.Buscas.ListarOperadores;
-using Lucilvio.Ticket.Buscas.PegarChamadoPeloProtocolo;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Lucilvio.Ticket.Buscas;
 using Lucilvio.Ticket.Infra.RepositoriosEf;
-using Lucilvio.Ticket.Infra.RepositoriosEf.ListarChamados;
-using Lucilvio.Ticket.Infra.RepositoriosEf.ListarClientes;
-using Lucilvio.Ticket.Infra.RepositoriosEf.ListarOperadores;
-using Lucilvio.Ticket.Infra.RepositoriosEf.PegarChamadoPorProtocolo;
-using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado;
-using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaCadastroDeCliente;
-using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaCadastroDeOperador;
-using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaEntrarNoSistema;
-using Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaResponderChamado;
 using Lucilvio.Ticket.Infra.SegurancaPorCookie;
-using Lucilvio.Ticket.Servicos.AbrirChamado;
-using Lucilvio.Ticket.Servicos.CadastrarCliente;
-using Lucilvio.Ticket.Servicos.CadastrarOperador;
+using Lucilvio.Ticket.Servicos;
 using Lucilvio.Ticket.Servicos.Comum.ServicosExternos.Autenticacao;
-using Lucilvio.Ticket.Servicos.EntrarNoSistema;
-using Lucilvio.Ticket.Servicos.EntrarNoSistemaComoCliente;
-using Lucilvio.Ticket.Servicos.ResponderChamado;
-using Lucilvio.Ticket.Servicos.SairDoSistema;
 using Lucilvio.Ticket.Web.Autorizacao;
 using Lucilvio.Ticket.Web.Chamados;
 using Lucilvio.Ticket.Web.Filtros;
@@ -86,30 +72,13 @@ namespace Lucilvio.Ticket.Web
                 opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=lucilvio.ticket;Trusted_Connection=True;MultipleActiveResultSets=true;Connection Timeout=300;");
             }, ServiceLifetime.Transient, ServiceLifetime.Transient);
 
-            services.AddTransient<IRepositorioParaAberturaDeChamado, RepositorioParaAberturaDeChamado>();
-            services.AddTransient<IRepositorioParaResponderChamado, RepositorioParaResponderChamado>();
-            services.AddTransient<IRepositorioParaCadastroDeOperador, RepositorioParaCadastroDeOperador>();
-            services.AddTransient<IRepositorioParaEntradaNoSistema, RepositorioParaEntrarNoSistema>();
-            services.AddTransient<IRepositorioParaCadastroDeCliente, RepositorioParaCadastroDeCliente>();
+            var tiposDoAssemblyDeBuscas = typeof(IQuery).Assembly.GetTypes();
+            var tiposDoAssemblyDeServico = typeof(IServico<>).Assembly.GetTypes();
 
-
-            services.AddTransient<IListarChamados, ListarChamados>();
-            services.AddTransient<IListarOperadores, ListarOperadores>();
-            services.AddTransient<IListarClientes, ListarClientes>();
-            services.AddTransient<IPegarChamadoPorProtocolo, PegarChamadoPorProtocolo>();
-
-            services.AddTransient<IServicoDeAutenticacao>(p =>
-            {
-                return new ServicoDeAutenticacaoViaCookie(p.GetService<IHttpContextAccessor>().HttpContext);
-            });
-
-            services.AddTransient<EntrarNoSistema>();
-            services.AddTransient<EntrarNoSistemaComoCliente>();
-            services.AddTransient<SairDoSistema>();
-            services.AddTransient<AbrirChamado>();
-            services.AddTransient<ResponderChamado>();
-            services.AddTransient<CadastrarOperador>();
-            services.AddTransient<CadastrarCliente>();
+            this.InjetarRepositorios(services, tiposDoAssemblyDeServico);
+            this.InjetarBuscas(services, tiposDoAssemblyDeBuscas);
+            this.InjetarServicosExternos(services);
+            this.InjetarComandos(services, tiposDoAssemblyDeServico);
 
             services.AddSingleton<IServicos>(provider =>
             {
@@ -138,6 +107,57 @@ namespace Lucilvio.Ticket.Web
 
             app.UseAuthentication();
             app.UseMvc();
+        }
+
+        private void InjetarComandos(IServiceCollection services, IEnumerable<Type> tipos)
+        {
+            var tiposDeComandos = tipos
+                .Where(t => ((TypeInfo)t).ImplementedInterfaces.Any(i => i == typeof(IComando))).ToList();
+
+            IList<Type> tiposDeServicos = new List<Type>();
+
+            tiposDeComandos.ForEach(t => tiposDeServicos.Add(tipos
+                .FirstOrDefault(ty => ((TypeInfo)ty).ImplementedInterfaces.Any(i => i.GenericTypeArguments.Contains(t)))));
+
+            tiposDeServicos.ToList().ForEach(t => services.AddTransient(t));
+        }
+
+        private void InjetarServicosExternos(IServiceCollection services)
+        {
+            services.AddTransient<IServicoDeAutenticacao>(p =>
+            {
+                return new ServicoDeAutenticacaoViaCookie(p.GetService<IHttpContextAccessor>().HttpContext);
+            });
+        }
+
+        private void InjetarBuscas(IServiceCollection services, IEnumerable<Type> tipos)
+        {
+            var tiposDeQueries = tipos
+                .Where(t => ((TypeInfo)t).ImplementedInterfaces.Any(i => i == typeof(IQuery))).ToList();
+
+            IList<Type> tiposDeBuscas = new List<Type>();
+            var implementacoesDeBuscas = new Dictionary<Type, Type>();
+
+            tiposDeQueries.ForEach(t => tiposDeBuscas.Add(
+                tipos.FirstOrDefault(ty => ((TypeInfo)ty).ImplementedInterfaces.Any(i => i.GenericTypeArguments.Contains(t)))));
+
+            tiposDeBuscas.Where(tb => tb != null).ToList().ForEach(t => implementacoesDeBuscas.Add(t, typeof(Contexto).Assembly.GetTypes()
+               .FirstOrDefault(ty => ((TypeInfo)ty).ImplementedInterfaces.Any(i => i == t))));
+
+            implementacoesDeBuscas.ToList().Where(i => i.Value != null).ToList().ForEach(t => services.AddTransient(t.Key, t.Value));
+        }
+
+        private void InjetarRepositorios(IServiceCollection services, IEnumerable<Type> tipos)
+        {
+            var tiposDeRepositorios = tipos
+                .Where(t => ((TypeInfo)t).ImplementedInterfaces.Any(i => i == typeof(IRepositorio))).ToList();
+
+            var implementacoesDosRepositorios = new Dictionary<Type, Type>();
+
+            tiposDeRepositorios.Where(tr => tr != null).ToList().ForEach(t => implementacoesDosRepositorios.Add(t, typeof(Contexto).Assembly.GetTypes()
+               .FirstOrDefault(ty => ((TypeInfo)ty).ImplementedInterfaces.Any(i => i == t))));
+
+            implementacoesDosRepositorios.Where(i => i.Value != null).ToList().ForEach(t => services.AddTransient(t.Key, t.Value));
         }
     }
 }

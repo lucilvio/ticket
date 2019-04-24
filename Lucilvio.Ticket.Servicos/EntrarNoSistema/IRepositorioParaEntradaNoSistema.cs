@@ -4,7 +4,7 @@ using Lucilvio.Ticket.Dominio.Usuarios;
 
 namespace Lucilvio.Ticket.Servicos.EntrarNoSistema
 {
-    public interface IRepositorioParaEntradaNoSistema
+    public interface IRepositorioParaEntradaNoSistema : IRepositorio
     {
         Usuario PegarUsuarioPeloLoginESenha(string login, string senha);
         Cliente PegarClientePeloLogin(string login);

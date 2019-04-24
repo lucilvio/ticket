@@ -2,7 +2,7 @@
 
 namespace Lucilvio.Ticket.Servicos.CadastrarCliente
 {
-    public interface IRepositorioParaCadastroDeCliente
+    public interface IRepositorioParaCadastroDeCliente : IRepositorio
     {
         void AdicionarCliente(Cliente novoCliente);
         void Persistir();

@@ -1,6 +1,6 @@
-﻿using Lucilvio.Ticket.Buscas.ListarOperadores;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
+using Lucilvio.Ticket.Buscas.ListarOperadores;
 
 namespace Lucilvio.Ticket.Infra.RepositoriosEf.ListarOperadores
 {
@@ -16,7 +16,7 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.ListarOperadores
         public IReadOnlyList<OperadorDaLista> Executar(QueryParaListarOperadores query)
         {
             var operadores = this._contexto.Operadores.Skip(query.Pagina * query.RegistrosPorPagina).Take(query.RegistrosPorPagina).ToList();
-            return operadores.Select(o => new OperadorDaLista(o.Id, o.Nome, o.Email, o.DataDoCadastro)).ToList();
+            return operadores.Select(o => new OperadorDaLista(o.Id, o.Nome, o.Email, o.Ativo, o.DataDoCadastro)).ToList();
         }
     }
 }

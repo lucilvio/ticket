@@ -3,7 +3,7 @@ using Lucilvio.Ticket.Dominio.Operadores;
 
 namespace Lucilvio.Ticket.Servicos.ResponderChamado
 {
-    public interface IRepositorioParaResponderChamado
+    public interface IRepositorioParaResponderChamado : IRepositorio
     {
         Operador PegarOperadorPeloLogin(string   operador);
         Chamado PegarChamadoPeloProtocolo(int chamado);

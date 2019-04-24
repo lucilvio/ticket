@@ -4,14 +4,16 @@ using Lucilvio.Ticket.Infra.RepositoriosEf;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lucilvio.Ticket.Infra.RepositoriosEf.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20190413232847_seed")]
+    partial class seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,8 +111,6 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Ativo");
-
                     b.Property<DateTime>("DataDoCadastro");
 
                     b.Property<string>("Email")
@@ -133,8 +133,6 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Ativo");
 
                     b.Property<DateTime>("DataDoCadastro");
 

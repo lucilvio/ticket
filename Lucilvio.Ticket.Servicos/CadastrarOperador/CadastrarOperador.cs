@@ -1,4 +1,5 @@
 ﻿using Lucilvio.Ticket.Dominio.Operadores;
+using System;
 using System.Threading.Tasks;
 
 namespace Lucilvio.Ticket.Servicos.CadastrarOperador
@@ -12,12 +13,20 @@ namespace Lucilvio.Ticket.Servicos.CadastrarOperador
             this._repositorio = repositorio;
         }
 
-        public async Task Executar(ComandoParaCadastrarOperador comando)
+        public void Executar(ComandoParaCadastrarOperador comando)
         {
             var novoOperador = new Operador(comando.Nome, comando.Email, comando.Senha);
 
+            if (this.JaExisteUmOperadorCadastradoComOMesmoEmail(novoOperador.Email))
+                throw new JaExisteUmOperadorCadastradoComOMesmoEmail();
+
             this._repositorio.AdicionarOperador(novoOperador);
             this._repositorio.Persistir();
+        }
+
+        private bool JaExisteUmOperadorCadastradoComOMesmoEmail(string email)
+        {
+            return this._repositorio.PegarOperadorPorEmail(email) != null;
         }
     }
 }

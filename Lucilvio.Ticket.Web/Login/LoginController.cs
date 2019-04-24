@@ -28,7 +28,7 @@ namespace Lucilvio.Ticket.Web.Login
         [HttpPost, Route("Entrar")]
         public async Task<IActionResult> Entrar(DadosDoLogin dados)
         {
-            await this._servicos.Enviar(new ComandoParaEntrarNoSistema(dados.Usuario, dados.Senha));
+            await this._servicos.EnviarAsync(new ComandoParaEntrarNoSistema(dados.Usuario, dados.Senha));
 
             return RedirectToAction("Index", "Home", new { });
         }

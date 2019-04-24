@@ -1,5 +1,6 @@
 ﻿using Lucilvio.Ticket.Dominio.Operadores;
 using Lucilvio.Ticket.Servicos.CadastrarOperador;
+using System.Linq;
 
 namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaCadastroDeOperador
 {
@@ -15,6 +16,11 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaCadastroDeOperador
         public void AdicionarOperador(Operador operador)
         {
             this._contexto.Operadores.Add(operador);
+        }
+
+        public Operador PegarOperadorPorEmail(string email)
+        {
+            return this._contexto.Operadores.FirstOrDefault(o => o.Email == email);
         }
 
         public void Persistir()

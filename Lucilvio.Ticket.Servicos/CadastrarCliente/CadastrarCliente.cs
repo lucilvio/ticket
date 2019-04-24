@@ -14,7 +14,7 @@ namespace Lucilvio.Ticket.Servicos.CadastrarCliente
             this._repositorio = repositorio;
         }
 
-        public async Task Executar(ComandoParaCadastrarCliente comando)
+        public void Executar(ComandoParaCadastrarCliente comando)
         {
             var novoCliente = new Cliente(comando.Nome, comando.Email, comando.Senha, comando.Contatos
                 .Select(c => new Cliente.Contato(c.Valor, (Cliente.Contato.TipoDoContato)Enum.Parse(typeof(Cliente.Contato.TipoDoContato), c.Tipo))).ToArray());

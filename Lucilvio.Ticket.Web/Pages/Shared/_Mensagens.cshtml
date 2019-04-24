@@ -2,11 +2,11 @@
 
 @if (TempData.ContainsKey("MensagemDeSucesso"))
 {
-    <script>toastr.info('@TempData["MensagemDeSucesso"]');</script>
+    <script>toastr.success('@TempData["MensagemDeSucesso"]', "Yey!");</script>
 }
 else if (TempData.ContainsKey("MensagemDeErro"))
 {
-    <script>toastr.error('@TempData["MensagemDeErro"]')</script>
+    <script>toastr.error('@TempData["MensagemDeErro"]', "Ops!")</script>
 }
 
 @{ TempData.Clear(); }  

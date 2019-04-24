@@ -3,7 +3,7 @@ using Lucilvio.Ticket.Servicos.Comum.ServicosExternos.Autenticacao;
 
 namespace Lucilvio.Ticket.Servicos.SairDoSistema
 {
-    public class SairDoSistema : IServico<ComandoParaSairDoSistema>
+    public class SairDoSistema : IServicoAsync<ComandoParaSairDoSistema>
     {
         private readonly IServicoDeAutenticacao _servicoDeAutenticacao;
 

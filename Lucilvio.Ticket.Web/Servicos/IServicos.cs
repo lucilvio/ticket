@@ -6,7 +6,8 @@ namespace Lucilvio.Ticket.Web.Chamados
 {
     public interface IServicos
     {
-        Task Enviar(IComando comando);
+        void Enviar(IComando comando);
+        Task EnviarAsync(IComando comando);
         dynamic EnviarQuery(IQuery query); 
     }
 }

@@ -18,7 +18,7 @@ namespace Lucilvio.Ticket.Web.Sair
         [Route("")]
         public async Task<IActionResult> Sair()
         {
-            await this._servicos.Enviar(new ComandoParaSairDoSistema());
+            await this._servicos.EnviarAsync(new ComandoParaSairDoSistema());
             return RedirectToAction("Index", "Home");
         }    
     }

@@ -11,14 +11,26 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Data do Cadastro</th>
+                <th></th>
             </tr>
 
-            @foreach (var chamado in @Model)
+            @foreach (var operador in @Model)
             {
                 <tr>
-                    <td> @chamado.Nome </td>
-                    <td> @chamado.Email </td>
-                    <td> @chamado.DataDoCadastro </td>
+                    <td> @operador.Nome </td>
+                    <td> @operador.Email </td>
+                    <td> @operador.DataDoCadastro </td>
+
+                    <td>
+                        @if (operador.Ativo)
+                        {
+                            <a href="@Url.Action("Inativar", "Operadores", new { id = operador.Id })" class="btn btn-primary"> Inativar </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Ativar", "Operadores", new { id = operador.Id })" class="btn btn-primary"> Ativar </a>
+                        }
+                    </td>
                 </tr>
             }
         </thsead>

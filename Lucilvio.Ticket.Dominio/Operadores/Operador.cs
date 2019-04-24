@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using Lucilvio.Ticket.Dominio.Chamados;
 using Lucilvio.Ticket.Dominio.Clientes;
 using Lucilvio.Ticket.Dominio.Usuarios;
@@ -24,6 +25,8 @@ namespace Lucilvio.Ticket.Dominio.Operadores
         public string Email { get; private set; }
         public Usuario Usuario { get; private set; }
         public DateTime DataDoCadastro { get; private set; }
+        public bool Ativo { get; private set; }
+
 
         public Chamado AbrirChamado(Cliente cliente, Protocolo.Gerador geradorDeProtocolo, string descricao)
         {
@@ -34,5 +37,27 @@ namespace Lucilvio.Ticket.Dominio.Operadores
         {
             novoChamado.AdicionarResposta(this, resposta);
         }
+
+        public void Ativar()
+        {
+            if (!this.JaEstaInativo)
+                throw new OperadorJaEstaAtivo();
+
+            this.Ativo = true;
+            this.Usuario.Ativar();
+        }
+
+        public void Inativar()
+        {
+            if (this.JaEstaInativo)
+                throw new OperadaroJaEstaInativo();
+
+            this.Ativo = false;
+            this.Usuario.Inativar();
+        }
+
+        private bool JaEstaInativo => this.Ativo == false;
     }
+
+    
 }

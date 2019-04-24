@@ -3,6 +3,7 @@ using Lucilvio.Ticket.Dominio.Clientes;
 using Lucilvio.Ticket.Dominio.Operadores;
 using Lucilvio.Ticket.Dominio.Usuarios;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Reflection;
 
 namespace Lucilvio.Ticket.Infra.RepositoriosEf

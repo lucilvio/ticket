@@ -4,7 +4,7 @@ using Lucilvio.Ticket.Servicos.Comum.ServicosExternos.Autenticacao;
 
 namespace Lucilvio.Ticket.Servicos.EntrarNoSistema
 {
-    public class EntrarNoSistema : IServico<ComandoParaEntrarNoSistema>
+    public class EntrarNoSistema : IServicoAsync<ComandoParaEntrarNoSistema>
     {
         private readonly IServicoDeAutenticacao _servicoDeSeguranca;
         private readonly IRepositorioParaEntradaNoSistema _repositorio;
@@ -21,7 +21,10 @@ namespace Lucilvio.Ticket.Servicos.EntrarNoSistema
 
             if (usuario == null)
                 throw new UsuarioOuSenhaInvalidos();
-            
+
+            if (usuario.Inativo)
+                throw new UsuarioInativo();
+
             await this._servicoDeSeguranca.Autenticar(new DadosDeAutenticacao(usuario.Nome, usuario.Login, usuario.Email, usuario.Perfil.ToString()));
         }
     }

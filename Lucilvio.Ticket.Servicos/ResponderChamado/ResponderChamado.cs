@@ -11,7 +11,7 @@ namespace Lucilvio.Ticket.Servicos.ResponderChamado
             this._repositorio = repositorio;
         }
 
-        public async Task Executar(ComandoParaResponderChamado comando)
+        public void Executar(ComandoParaResponderChamado comando)
         {
             var operador = this._repositorio.PegarOperadorPeloLogin(comando.Operador);
             var chamado = this._repositorio.PegarChamadoPeloProtocolo(comando.Chamado);
