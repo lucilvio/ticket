@@ -18,6 +18,7 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+
             base.OnModelCreating(modelBuilder);
         }
 

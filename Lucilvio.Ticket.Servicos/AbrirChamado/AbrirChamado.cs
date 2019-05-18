@@ -1,15 +1,16 @@
 ﻿using Lucilvio.Ticket.Dominio.Chamados;
-using System.Threading.Tasks;
 
 namespace Lucilvio.Ticket.Servicos.AbrirChamado
 {
     public class AbrirChamado : IServico<ComandoParaAbrirChamado>
     {
+        private readonly IGeradorDeProtocolo _geradorDeProtocolo;
         private readonly IRepositorioParaAberturaDeChamado _repositorio;
 
-        public AbrirChamado(IRepositorioParaAberturaDeChamado repositorio)
+        public AbrirChamado(IRepositorioParaAberturaDeChamado repositorio, IGeradorDeProtocolo geradorDeProtocolo)
         {
             this._repositorio = repositorio;
+            this._geradorDeProtocolo = geradorDeProtocolo;
         }
 
         public void Executar(ComandoParaAbrirChamado comando)
@@ -20,9 +21,9 @@ namespace Lucilvio.Ticket.Servicos.AbrirChamado
                 throw new NenhumClienteEncontradoParaFazerAAberturaDoChamado();
 
             var ultimoProtocoloDeChamadoCriado = this._repositorio.PegarProtocoloDoUltimoChamadoAberto();
-            var geradorDeProtocolo = new Protocolo.Gerador(ultimoProtocoloDeChamadoCriado);
+            var novoProtocolo = new Protocolo(this._geradorDeProtocolo.Gerar(ultimoProtocoloDeChamadoCriado)); 
 
-            var novoChamado = cliente.AbrirChamado(geradorDeProtocolo.NovoProtocolo(), comando.Descricao);
+            var novoChamado = cliente.AbrirChamado(novoProtocolo, comando.Descricao);
 
             this._repositorio.Persistir();
         }

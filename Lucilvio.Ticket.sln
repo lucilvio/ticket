@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Testes", "Lucilvio.Ticket.Testes\Lucilvio.Ticket.Testes.csproj", "{A45D3DE2-0513-453B-9043-CA13FC1EDB35}"
 EndProject
@@ -21,7 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestrutura", "Infraestr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Teste", "Teste", "{0BC63F1A-0F32-4E4E-A103-5ED1F440C73F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucilvio.Ticket.Infra.SegurancaPorCookie", "Lucilvio.Ticket.Infra.SegurancaPorCookie\Lucilvio.Ticket.Infra.SegurancaPorCookie.csproj", "{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Infra.SegurancaPorCookie", "Lucilvio.Ticket.Infra.SegurancaPorCookie\Lucilvio.Ticket.Infra.SegurancaPorCookie.csproj", "{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucilvio.Ticket.Infra.GeradorDeProtocolo", "Lucilvio.Ticket.Infra.GeradorDeProtocolo\Lucilvio.Ticket.Infra.GeradorDeProtocolo.csproj", "{2D3C2813-2DEE-497D-A5CC-AB6B8F0667DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D3C2813-2DEE-497D-A5CC-AB6B8F0667DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D3C2813-2DEE-497D-A5CC-AB6B8F0667DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D3C2813-2DEE-497D-A5CC-AB6B8F0667DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D3C2813-2DEE-497D-A5CC-AB6B8F0667DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{50783A35-1F96-46F4-A506-2786FADDA69A} = {FB15A12A-98E0-48B8-8283-6FDFE1622890}
 		{DA092E4A-F4DD-4730-B6D4-CE703636C4D3} = {F2714DFD-A6F1-49BE-8F51-6F850AB38E81}
 		{027F2D9E-D17D-4FC1-B0F8-75EFC1F08D70} = {F2714DFD-A6F1-49BE-8F51-6F850AB38E81}
+		{2D3C2813-2DEE-497D-A5CC-AB6B8F0667DA} = {F2714DFD-A6F1-49BE-8F51-6F850AB38E81}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {37438323-71F1-49F5-9B81-362A08BC3B9E}

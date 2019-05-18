@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using Lucilvio.Ticket.Dominio.Chamados;
 using Lucilvio.Ticket.Dominio.Clientes;
 using Lucilvio.Ticket.Dominio.Usuarios;
@@ -28,9 +27,9 @@ namespace Lucilvio.Ticket.Dominio.Operadores
         public bool Ativo { get; private set; }
 
 
-        public Chamado AbrirChamado(Cliente cliente, Protocolo.Gerador geradorDeProtocolo, string descricao)
+        public Chamado AbrirChamado(Cliente cliente, Protocolo protocolo, string descricao)
         {
-            return new Chamado(cliente, geradorDeProtocolo.NovoProtocolo(), descricao);
+            return new Chamado(cliente, protocolo, descricao);
         }
 
         public void ResponderAoChamado(Chamado novoChamado, string resposta)

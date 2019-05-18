@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lucilvio.Ticket.Dominio\Lucilvio.Ticket.Dominio.csproj" />
+    <ProjectReference Include="..\Lucilvio.Ticket.Infra.GeradorDeProtocolo\Lucilvio.Ticket.Infra.GeradorDeProtocolo.csproj" />
+    <ProjectReference Include="..\Lucilvio.Ticket.Servicos\Lucilvio.Ticket.Servicos.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,7 +12,7 @@ namespace Lucilvio.Ticket.Testes
         public void AbreChamadoEmNomeDoCliente()
         {
             var operador = new Operador("Teste", "teste@teste.com", "123456");
-            var novoChamado = operador.AbrirChamado(new Cliente("Teste", "Teste", "123456"), new Protocolo.Gerador(0), "Chamado de teste");
+            var novoChamado = operador.AbrirChamado(new Cliente("Teste", "Teste", "123456"), new Protocolo(1), "Chamado de teste");
 
             Assert.IsNotNull(novoChamado);
         }
@@ -21,7 +21,7 @@ namespace Lucilvio.Ticket.Testes
         public void RespondeAoChamado()
         {
             var cliente = new Cliente("Teste", "Teste", "123456");
-            var novoChamado = cliente.AbrirChamado(new Protocolo.Gerador(0).NovoProtocolo(), "Chamado de teste");
+            var novoChamado = cliente.AbrirChamado(new Protocolo(1), "Chamado de teste");
 
             var operador = new Operador("Teste", "teste@teste.com", "123456");
             operador.ResponderAoChamado(novoChamado, "Resposta de teste");

@@ -15,6 +15,12 @@ namespace Lucilvio.Ticket.Dominio.Chamados
 
         public Chamado(Cliente cliente, Protocolo protocolo, string descricao) :  this()
         {
+            if (cliente == null)
+                throw new ChamadoNaoPodeSerAbertoSemCliente();
+
+            if (protocolo == null)
+                throw new ChamadoNaoPodeSerAbertoSemProtocolo();
+            
             if (string.IsNullOrEmpty(descricao))
                 throw new ChamadoNaoPodeSerAbertoSemDescricao();
 

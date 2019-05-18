@@ -69,7 +69,7 @@ namespace Lucilvio.Ticket.Web
 
             services.AddDbContext<Contexto>(opt =>
             {
-                opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=lucilvio.ticket;Trusted_Connection=True;MultipleActiveResultSets=true;Connection Timeout=300;");
+                opt.UseSqlServer(@"Server=localhost;Database=lucilvio.ticket;Trusted_Connection=True;MultipleActiveResultSets=true;Connection Timeout=300;");
             }, ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             var tiposDoAssemblyDeBuscas = typeof(IQuery).Assembly.GetTypes();

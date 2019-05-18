@@ -4,62 +4,21 @@ namespace Lucilvio.Ticket.Dominio.Chamados
 {
     public class Protocolo
     {
-        private Protocolo(int valor)
+        private readonly int _valor;
+
+        public Protocolo(int valor)
         {
-            int anoCorrente = DateTime.Now.Year;
+            if (valor <= 0)
+                throw new NumeroDoProtocoloNaoPodeSerIgualOuMenorQueZero();
 
-            if (valor.ToString().Length > 4)
-            {
-                this.Ano = int.Parse(valor.ToString().Substring(0, 4));
-                this.Incremental = int.Parse(valor.ToString().Substring(4));
-
-                if (anoCorrente > this.Ano)
-                    this.Incremental = 0;
-            }
-            else
-            {
-                this.Ano = DateTime.Now.Year;
-                this.Incremental = valor;
-            }
+            this._valor = valor;
         }
 
-        public int Valor => MontarNumero(this.Ano, this.Incremental);
-        private int Incremental { get; set; }
-        private int Ano { get; }
+        public int Valor => this._valor;
 
-        private Protocolo Incrementar()
+        public static implicit operator int(Protocolo protocolo)
         {
-            return new Protocolo(MontarNumero(this.Ano, ++this.Incremental));
-        }
-
-        public static implicit operator int(Protocolo p)
-        {
-            return MontarNumero(p.Ano, p.Incremental);
-        }
-
-        private static int MontarNumero(int ano, int incremental)
-        {
-            return int.Parse($"{ano}{incremental}");
-        }
-
-        public class Gerador
-        {
-            private int _ano;
-            private int _incremental;
-            private Protocolo _protocolo;
-
-            public Gerador(int ultimoProtocoloGerado)
-            {
-                this._protocolo = new Protocolo(ultimoProtocoloGerado);
-
-                this._ano = this._protocolo.Ano;
-                this._incremental = this._protocolo.Incremental;
-            }
-
-            public Protocolo NovoProtocolo()
-            {
-                return this._protocolo.Incrementar();
-            }
+            return protocolo.Valor;
         }
     }
 }

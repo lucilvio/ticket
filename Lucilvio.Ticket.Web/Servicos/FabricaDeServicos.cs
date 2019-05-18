@@ -25,15 +25,7 @@ namespace Lucilvio.Ticket.Web.Chamados
         public async Task EnviarAsync(IComando comando)
         {
             dynamic servico = this.PegarServicoPeloComando(comando);
-
-            if(servico.GetType().CustomAttributes.Any())
-            {
-
-            }
-            else
-            {
-                await servico.Executar((dynamic)comando);
-            }
+            await servico.Executar((dynamic)comando);
         }
 
         public dynamic EnviarQuery(IQuery query)
