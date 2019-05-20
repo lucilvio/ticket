@@ -1,5 +1,4 @@
-﻿using System;
-using Lucilvio.Ticket.Infra.Dados;
+﻿using Lucilvio.Ticket.Infra.Dados;
 using Lucilvio.Ticket.Dominio.Operadores;
 
 namespace Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios
@@ -13,6 +12,7 @@ namespace Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios
 
             return new DadosDoOperador
             {
+                Id = operador.Id,
                 Nome = operador.Nome,
                 Email = operador.Email,
                 Ativo = operador.Ativo,

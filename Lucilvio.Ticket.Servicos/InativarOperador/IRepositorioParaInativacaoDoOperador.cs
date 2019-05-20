@@ -5,6 +5,6 @@ namespace Lucilvio.Ticket.Servicos.InativarOperador
     public interface IRepositorioParaInativacaoDoOperador : IRepositorio
     {
         Operador PegarOperadorPeloId(int id);
-        void Persistir();
+        void Persistir(Operador operador);
     }
 }

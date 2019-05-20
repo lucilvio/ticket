@@ -1,6 +1,4 @@
-﻿
-
-@if (TempData.ContainsKey("MensagemDeSucesso"))
+﻿@if (TempData.ContainsKey("MensagemDeSucesso"))
 {
     <script>toastr.success('@TempData["MensagemDeSucesso"]', "Yey!");</script>
 }

@@ -5,7 +5,7 @@ using Lucilvio.Ticket.Dominio.Usuarios;
 
 namespace Lucilvio.Ticket.Dominio.Operadores
 {
-    public sealed class Operador : Entidade
+    public sealed class Operador
     {
         private Operador() { }
 
@@ -20,6 +20,7 @@ namespace Lucilvio.Ticket.Dominio.Operadores
             this.Ativar();
         }
 
+        public int Id { get; private set; }
         public string Nome { get; private set; }
         public string Email { get; private set; }
         public Usuario Usuario { get; private set; }

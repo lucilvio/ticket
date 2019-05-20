@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Lucilvio.Ticket.Web.Chamados;
+using Lucilvio.Ticket.Servicos.Comum;
+using Lucilvio.Ticket.Web.Autorizacao;
+using Microsoft.AspNetCore.Authorization;
 using Lucilvio.Ticket.Buscas.ListarClientes;
 using Lucilvio.Ticket.Web.Clientes.Cadastro;
-using Lucilvio.Ticket.Servicos.Comum;
 using Lucilvio.Ticket.Servicos.CadastrarCliente;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
-using Lucilvio.Ticket.Web.Autorizacao;
 
 namespace Lucilvio.Ticket.Web.Clientes
 {

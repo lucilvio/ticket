@@ -25,7 +25,7 @@ namespace Lucilvio.Ticket.Servicos.AtivarOperador
 
             operador.Ativar();
 
-            this._repositorio.Persistir();
+            this._repositorio.Persistir(operador);
         }
     }
 }

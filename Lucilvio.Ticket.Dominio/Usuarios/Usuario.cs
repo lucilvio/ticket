@@ -2,7 +2,7 @@
 
 namespace Lucilvio.Ticket.Dominio.Usuarios
 {
-    public sealed class Usuario : Entidade
+    public sealed class Usuario
     {
         private Usuario() { }
 
@@ -22,6 +22,7 @@ namespace Lucilvio.Ticket.Dominio.Usuarios
         public static Usuario Operador(string nome, string email, string login, string senha) => new Usuario(nome, email, login, senha, PerfilDoUsuario.Operador);
         public static Usuario Administrador(string nome, string email, string login, string senha) => new Usuario(nome, email, login, senha, PerfilDoUsuario.Administrador);
 
+        public int Id { get; private set; }
         public string Nome { get; private set; }
         public string Email { get; private set; }
         public string Login { get; private set; }

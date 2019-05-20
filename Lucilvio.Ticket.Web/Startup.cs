@@ -54,7 +54,7 @@ namespace Lucilvio.Ticket.Web
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opcoes =>
             { 
-                opcoes.LoginPath = "/Login";
+                opcoes.LoginPath = "/Login/Entrar";
             });
 
             services.AddAuthorization(opt =>

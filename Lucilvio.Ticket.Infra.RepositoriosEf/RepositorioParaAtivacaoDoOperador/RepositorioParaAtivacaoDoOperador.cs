@@ -22,8 +22,10 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAtivacaoDoOperador
             return this._adaptador.AdaptarOperadorParaEntidade(this._contexto.Operadores.Include(o => o.Usuario).FirstOrDefault(o => o.Id == id));
         }
 
-        public void Persistir()
+        public void Persistir(Operador operador)
         {
+            this._contexto.Update(this._adaptador.AdaptarOperadorParaDados(operador));
+
             this._contexto.SaveChanges();
         }
     }

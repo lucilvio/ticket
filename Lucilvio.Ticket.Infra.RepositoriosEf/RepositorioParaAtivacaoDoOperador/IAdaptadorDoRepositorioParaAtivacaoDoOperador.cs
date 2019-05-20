@@ -6,6 +6,7 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAtivacaoDoOperador
 {
     public interface IAdaptadorDoRepositorioParaAtivacaoDoOperador : IAdaptador
     {
-        Operador AdaptarOperadorParaEntidade(DadosDoOperador dadosDoOperador);
+        Operador AdaptarOperadorParaEntidade(DadosDoOperador dados);
+        DadosDoOperador AdaptarOperadorParaDados(Operador operador);
     }
 }

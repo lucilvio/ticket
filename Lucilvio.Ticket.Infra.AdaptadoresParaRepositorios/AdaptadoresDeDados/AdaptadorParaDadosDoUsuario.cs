@@ -12,6 +12,7 @@ namespace Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios
 
             return new DadosDoUsuario
             {
+                Id = usuario.Id,
                 Nome = usuario.Nome,
                 Email = usuario.Email,
                 Ativo = usuario.Ativo,

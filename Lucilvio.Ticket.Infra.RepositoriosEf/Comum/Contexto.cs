@@ -8,6 +8,7 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.Comum
     {
         public Contexto(DbContextOptions<Contexto> opcoes) : base(opcoes)
         {
+            this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

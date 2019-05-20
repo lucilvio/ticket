@@ -19,10 +19,9 @@ namespace Lucilvio.Ticket.Web.Filtros
                 context.ExceptionHandled = false;
                 return;
             }
-
             
             context.ExceptionHandled = true;
-
+           
             context.Result = new ViewResult();
         
             base.OnException(context);
