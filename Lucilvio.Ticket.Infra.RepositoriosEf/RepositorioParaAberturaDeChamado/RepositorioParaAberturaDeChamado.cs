@@ -1,32 +1,24 @@
-﻿using Lucilvio.Ticket.Dominio.Chamados;
+﻿using System.Linq;
 using Lucilvio.Ticket.Dominio.Clientes;
 using Lucilvio.Ticket.Servicos.AbrirChamado;
-using System.Linq;
+using Lucilvio.Ticket.Infra.RepositoriosEf.Comum;
 
 namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado
 {
     public class RepositorioParaAberturaDeChamado : IRepositorioParaAberturaDeChamado
     {
         private readonly Contexto _contexto;
+        private readonly IAdaptadorDoRepositorioParaAberturaDeChamado _adaptador;
 
-        public RepositorioParaAberturaDeChamado(Contexto contexto)
+        public RepositorioParaAberturaDeChamado(Contexto contexto, IAdaptadorDoRepositorioParaAberturaDeChamado adaptador)
         {
             this._contexto = contexto;
+            this._adaptador = adaptador;
         }
 
         public Cliente PegarClientePeloLogin(string login)
         {
-            Cliente clienteDeTeste = this._contexto.Clientes.FirstOrDefault(c => c.Usuario.Login == login);
-
-            if (clienteDeTeste == null)
-            {
-                this._contexto.Clientes.Add(new Cliente("teste", "teste", "123456"));
-                this._contexto.SaveChanges();
-
-                clienteDeTeste = this._contexto.Clientes.FirstOrDefault(c => c.Usuario.Login == login);
-            }
-
-            return clienteDeTeste;
+            return this._adaptador.AdaptarClienteParaEntidade(this._contexto.Clientes.FirstOrDefault(c => c.Usuario.Login == login));
         }
 
         public int PegarProtocoloDoUltimoChamadoAberto()

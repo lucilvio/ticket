@@ -6,6 +6,6 @@ namespace Lucilvio.Ticket.Servicos.CadastrarOperador
     {
         void AdicionarOperador(Operador operador);
         void Persistir();
-        Operador PegarOperadorPorEmail(string email);
+        bool ExisteOperadorComOEmail(string email);
     }
 }

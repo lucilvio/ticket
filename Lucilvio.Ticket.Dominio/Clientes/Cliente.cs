@@ -5,7 +5,7 @@ using Lucilvio.Ticket.Dominio.Usuarios;
 
 namespace Lucilvio.Ticket.Dominio.Clientes
 {
-    public class Cliente : Entidade
+    public sealed class Cliente : Entidade
     {
         private Cliente()
         {

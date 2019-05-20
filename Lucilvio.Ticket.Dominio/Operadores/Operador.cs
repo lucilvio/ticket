@@ -5,11 +5,9 @@ using Lucilvio.Ticket.Dominio.Usuarios;
 
 namespace Lucilvio.Ticket.Dominio.Operadores
 {
-    public class Operador : Entidade
+    public sealed class Operador : Entidade
     {
-        private Operador()
-        {
-        }
+        private Operador() { }
 
         public Operador(string nome, string email, string senha)
         {
@@ -18,6 +16,8 @@ namespace Lucilvio.Ticket.Dominio.Operadores
             this.Usuario = Usuario.Operador(nome, email, email, senha);
 
             this.DataDoCadastro = DateTime.Now;
+
+            this.Ativar();
         }
 
         public string Nome { get; private set; }
@@ -57,6 +57,4 @@ namespace Lucilvio.Ticket.Dominio.Operadores
 
         private bool JaEstaInativo => this.Ativo == false;
     }
-
-    
 }

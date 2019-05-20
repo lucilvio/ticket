@@ -23,7 +23,7 @@ namespace Lucilvio.Ticket.Web.Clientes
         [HttpGet, Route("")]
         public IActionResult Lista()
         {
-            var clientes = this._servicos.EnviarQuery(new QueryParaListarClients(0, 10));
+            var clientes = this._servicos.EnviarQuery(new QueryParaListarClientes(0, 10));
             return View(clientes);
         }
 

@@ -6,7 +6,7 @@ using Lucilvio.Ticket.Dominio.Operadores;
 
 namespace Lucilvio.Ticket.Dominio.Chamados
 {
-    public class Chamado : Entidade
+    public sealed class Chamado : Entidade
     {
         private Chamado()
         {
@@ -35,7 +35,7 @@ namespace Lucilvio.Ticket.Dominio.Chamados
         public Cliente Cliente { get; private set; }
         public string Descricao { get; private set; }
         public DateTime DataDaAbertura { get; private set; }
-        public IList<Resposta> Respostas { get; set; }
+        public IList<Resposta> Respostas { get; private set; }
 
         public string AbertoPor => this.Cliente != null ? this.Cliente.Nome : "";
 

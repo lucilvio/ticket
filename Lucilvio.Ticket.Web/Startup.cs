@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Lucilvio.Ticket.Buscas;
-using Lucilvio.Ticket.Infra.RepositoriosEf;
+using Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios;
+using Lucilvio.Ticket.Infra.RepositoriosEf.Comum;
 using Lucilvio.Ticket.Infra.SegurancaPorCookie;
 using Lucilvio.Ticket.Servicos;
 using Lucilvio.Ticket.Servicos.Comum.ServicosExternos.Autenticacao;
@@ -67,14 +68,23 @@ namespace Lucilvio.Ticket.Web
                 opc.Filters.Add(new TratarExcecoesDeNegocio());
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            var stringDeConexao = @"Server=localhost;Database=lucilvio.ticket;Trusted_Connection=True;MultipleActiveResultSets=true;Connection Timeout=300;";
+
             services.AddDbContext<Contexto>(opt =>
             {
-                opt.UseSqlServer(@"Server=localhost;Database=lucilvio.ticket;Trusted_Connection=True;MultipleActiveResultSets=true;Connection Timeout=300;");
+                opt.UseSqlServer(stringDeConexao);
             }, ServiceLifetime.Transient, ServiceLifetime.Transient);
+
+            services.AddTransient(servicos =>
+            {
+                return new Infra.BuscasComDapper.Contexto(stringDeConexao);
+            });
 
             var tiposDoAssemblyDeBuscas = typeof(IQuery).Assembly.GetTypes();
             var tiposDoAssemblyDeServico = typeof(IServico<>).Assembly.GetTypes();
+            var tiposDoAssemblyDeAdaptadores = typeof(IAdaptador).Assembly.GetTypes();
 
+            this.InjetarAdaptadoresDeRepositorios(services, tiposDoAssemblyDeAdaptadores);
             this.InjetarRepositorios(services, tiposDoAssemblyDeServico);
             this.InjetarBuscas(services, tiposDoAssemblyDeBuscas);
             this.InjetarServicosExternos(services);
@@ -130,6 +140,20 @@ namespace Lucilvio.Ticket.Web
             });
         }
 
+        private void InjetarAdaptadoresDeRepositorios(IServiceCollection services, IEnumerable<Type> tipos)
+        {
+            var tiposDeAdaptadoresDeRepositorios = tipos
+                .Where(t => ((TypeInfo)t).ImplementedInterfaces.Any(i => i == typeof(IAdaptador))).ToList();
+
+            var implementacoesDeAdaptadoresDosRepositorios = new Dictionary<Type, Type>();
+
+            tiposDeAdaptadoresDeRepositorios.Where(tr => tr != null).ToList()
+               .ForEach(t => implementacoesDeAdaptadoresDosRepositorios.Add(t, typeof(AdaptadorDoRepositorioParaEntradaNoSistema).Assembly.GetTypes()
+               .FirstOrDefault(ty => ((TypeInfo)ty).ImplementedInterfaces.Any(i => i == t))));
+
+            implementacoesDeAdaptadoresDosRepositorios.Where(i => i.Value != null).ToList().ForEach(t => services.AddSingleton(t.Key, t.Value));
+        }
+
         private void InjetarBuscas(IServiceCollection services, IEnumerable<Type> tipos)
         {
             var tiposDeQueries = tipos
@@ -141,7 +165,7 @@ namespace Lucilvio.Ticket.Web
             tiposDeQueries.ForEach(t => tiposDeBuscas.Add(
                 tipos.FirstOrDefault(ty => ((TypeInfo)ty).ImplementedInterfaces.Any(i => i.GenericTypeArguments.Contains(t)))));
 
-            tiposDeBuscas.Where(tb => tb != null).ToList().ForEach(t => implementacoesDeBuscas.Add(t, typeof(Contexto).Assembly.GetTypes()
+            tiposDeBuscas.Where(tb => tb != null).ToList().ForEach(t => implementacoesDeBuscas.Add(t, typeof(Infra.BuscasComDapper.Contexto).Assembly.GetTypes()
                .FirstOrDefault(ty => ((TypeInfo)ty).ImplementedInterfaces.Any(i => i == t))));
 
             implementacoesDeBuscas.ToList().Where(i => i.Value != null).ToList().ForEach(t => services.AddTransient(t.Key, t.Value));

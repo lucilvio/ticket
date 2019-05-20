@@ -3,7 +3,7 @@ using System;
 
 namespace Lucilvio.Ticket.Dominio.Chamados
 {
-    public class Resposta : Entidade
+    public sealed class Resposta : Entidade
     {
         private Resposta()
         {

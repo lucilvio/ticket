@@ -1,37 +1,30 @@
-﻿using Lucilvio.Ticket.Dominio.Chamados;
+﻿using System.Linq;
+using Lucilvio.Ticket.Dominio.Chamados;
 using Lucilvio.Ticket.Dominio.Operadores;
+using Lucilvio.Ticket.Infra.RepositoriosEf.Comum;
 using Lucilvio.Ticket.Servicos.ResponderChamado;
-using System.Linq;
 
 namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaResponderChamado
 {
     public class RepositorioParaResponderChamado : IRepositorioParaResponderChamado
     {
         private readonly Contexto _contexto;
+        private readonly IAdaptadorDoRepositorioParaResponderChamado _adaptador;
 
-        public RepositorioParaResponderChamado(Contexto contexto)
+        public RepositorioParaResponderChamado(Contexto contexto, IAdaptadorDoRepositorioParaResponderChamado adaptador)
         {
             this._contexto = contexto;
+            this._adaptador = adaptador;
         }
 
         public Chamado PegarChamadoPeloProtocolo(int chamado)
         {
-            return this._contexto.Chamados.FirstOrDefault(c => c.Protocolo == chamado);
+            return this._adaptador.AdaptarChamadoParaEntidade(this._contexto.Chamados.FirstOrDefault(c => c.Protocolo == chamado));
         }
 
         public Operador PegarOperadorPeloLogin(string login)
         {
-            var operador = this._contexto.Operadores.FirstOrDefault(o => o.Usuario.Login == login);
-
-            if(operador == null)
-            {
-                this._contexto.Operadores.Add(new Operador("operador", "operador@operador.com", "123456"));
-                this._contexto.SaveChanges();
-
-                operador = this._contexto.Operadores.FirstOrDefault(o => o.Usuario.Login == login);
-            }
-
-            return operador;
+            return this._adaptador.AdaptarOperadorParaEntidade((this._contexto.Operadores.FirstOrDefault(o => o.Usuario.Login == login)));
         }
 
         public void Persistir()

@@ -2,7 +2,7 @@
 
 namespace Lucilvio.Ticket.Dominio.Chamados
 {
-    public class Protocolo
+    public sealed class Protocolo
     {
         private readonly int _valor;
 

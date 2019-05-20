@@ -2,11 +2,9 @@
 
 namespace Lucilvio.Ticket.Dominio.Usuarios
 {
-    public class Usuario : Entidade
+    public sealed class Usuario : Entidade
     {
-        private Usuario()
-        {
-        }
+        private Usuario() { }
 
         private Usuario(string nome, string email, string login, string senha, PerfilDoUsuario perfil)
         {
@@ -16,6 +14,8 @@ namespace Lucilvio.Ticket.Dominio.Usuarios
             this.Senha = senha;
             this.Perfil = perfil;
             this.DataDoCadastro = DateTime.Now;
+
+            this.Ativar();
         }
 
         public static Usuario Cliente(string nome, string email, string login, string senha) => new Usuario(nome, email, login, senha, PerfilDoUsuario.Cliente);

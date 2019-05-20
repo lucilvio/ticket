@@ -2,7 +2,7 @@
 
 namespace Lucilvio.Ticket.Buscas.ListarClientes
 {
-    public interface IListarClientes : IBusca<IReadOnlyList<ClienteDaLista>, QueryParaListarClients>
+    public interface IListarClientes : IBusca<IReadOnlyList<ClienteDaLista>, QueryParaListarClientes>
     {
         
     }

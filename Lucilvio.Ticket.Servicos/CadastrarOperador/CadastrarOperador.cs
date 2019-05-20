@@ -1,6 +1,4 @@
 ﻿using Lucilvio.Ticket.Dominio.Operadores;
-using System;
-using System.Threading.Tasks;
 
 namespace Lucilvio.Ticket.Servicos.CadastrarOperador
 {
@@ -26,7 +24,7 @@ namespace Lucilvio.Ticket.Servicos.CadastrarOperador
 
         private bool JaExisteUmOperadorCadastradoComOMesmoEmail(string email)
         {
-            return this._repositorio.PegarOperadorPorEmail(email) != null;
+            return this._repositorio.ExisteOperadorComOEmail(email);
         }
     }
 }

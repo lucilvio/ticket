@@ -1,6 +1,4 @@
-﻿using Lucilvio.Ticket.Dominio;
-using Lucilvio.Ticket.Dominio.Chamados;
-using Lucilvio.Ticket.Dominio.Clientes;
+﻿using Lucilvio.Ticket.Dominio.Clientes;
 
 namespace Lucilvio.Ticket.Servicos.AbrirChamado
 {

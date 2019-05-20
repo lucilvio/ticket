@@ -1,34 +1,25 @@
 ﻿using System.Linq;
-using Lucilvio.Ticket.Dominio.Clientes;
-using Lucilvio.Ticket.Dominio.Operadores;
 using Lucilvio.Ticket.Dominio.Usuarios;
 using Lucilvio.Ticket.Servicos.EntrarNoSistema;
-using Microsoft.EntityFrameworkCore;
+using Lucilvio.Ticket.Infra.RepositoriosEf.Comum;
 
 namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaEntrarNoSistema
 {
     public class RepositorioParaEntrarNoSistema : IRepositorioParaEntradaNoSistema
     {
         private readonly Contexto _contexto;
+        private readonly IAdaptadorDoRepositorioParaEntradaNoSistema _adaptador;
 
-        public RepositorioParaEntrarNoSistema(Contexto contexto)
+        public RepositorioParaEntrarNoSistema(Contexto contexto, IAdaptadorDoRepositorioParaEntradaNoSistema adaptador)
         {
             this._contexto = contexto;
-        }
-
-        public Cliente PegarClientePeloLogin(string login)
-        {
-            return this._contexto.Clientes.FirstOrDefault(c => c.Usuario.Login == login);
-        }
-
-        public Operador PegarOperadorPeloLogin(string login)
-        {
-            return this._contexto.Operadores.FirstOrDefault(o => o.Usuario.Login == login);
+            this._adaptador = adaptador;
         }
 
         public Usuario PegarUsuarioPeloLoginESenha(string login, string senha)
         {
-            return this._contexto.Usuarios.FirstOrDefault(u => u.Login == login && u.Senha == senha);
+            var usuario = this._contexto.Usuarios.FirstOrDefault(u => u.Login == login && u.Senha == senha);
+            return this._adaptador.AdaptarUsuarioParaEntidade(usuario);
         }
     }
 }
