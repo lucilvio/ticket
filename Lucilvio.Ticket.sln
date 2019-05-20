@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Infra.Gerad
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Infra.BuscasComDapper", "Lucilvio.Ticket.Infra.BuscasCOmDapper\Lucilvio.Ticket.Infra.BuscasComDapper.csproj", "{035ABD2F-615D-4502-952F-3E35553D90DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios", "Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios\Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios.csproj", "{DA43FBD4-D692-4F9D-9128-D8CC91895CA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios", "Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios\Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios.csproj", "{DA43FBD4-D692-4F9D-9128-D8CC91895CA0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cliente", "Cliente", "{CB5A7A3E-EDC4-44F5-8314-891DB357976D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A45D3DE2-0513-453B-9043-CA13FC1EDB35} = {0BC63F1A-0F32-4E4E-A103-5ED1F440C73F}
+		{90775705-D04F-45C4-8394-954C3EA1710C} = {CB5A7A3E-EDC4-44F5-8314-891DB357976D}
 		{C8EB4151-97DD-4A84-A409-56534DCD55E8} = {FB15A12A-98E0-48B8-8283-6FDFE1622890}
 		{980501B1-3B2B-42C1-9C1A-4B12E6EA34ED} = {FB15A12A-98E0-48B8-8283-6FDFE1622890}
 		{50783A35-1F96-46F4-A506-2786FADDA69A} = {FB15A12A-98E0-48B8-8283-6FDFE1622890}
