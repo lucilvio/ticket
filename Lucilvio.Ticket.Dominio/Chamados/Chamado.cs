@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using Lucilvio.Ticket.Dominio.Clientes;
 using Lucilvio.Ticket.Dominio.Operadores;
@@ -35,13 +34,13 @@ namespace Lucilvio.Ticket.Dominio.Chamados
         public Cliente Cliente { get; private set; }
         public string Descricao { get; private set; }
         public DateTime DataDaAbertura { get; private set; }
-        public IList<Resposta> Respostas { get; private set; }
+        public IEnumerable<Resposta> Respostas { get; private set; }
 
         public string AbertoPor => this.Cliente != null ? this.Cliente.Nome : "";
 
         internal void AdicionarResposta(Operador operador, string resposta)
         {
-            this.Respostas.Add(new Resposta(this, operador, resposta));
+            ((IList<Resposta>)this.Respostas).Add(new Resposta(this, operador, resposta));
         }
     }
 }

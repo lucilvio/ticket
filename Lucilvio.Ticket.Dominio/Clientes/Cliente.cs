@@ -26,7 +26,7 @@ namespace Lucilvio.Ticket.Dominio.Clientes
         public string Email { get; private set; }
         public Usuario Usuario { get; private set; }
         public DateTime DataDoCadastro { get; private set; }
-        public IList<Chamado> Chamados { get; private set; }
+        public IEnumerable<Chamado> Chamados { get; private set; }
         public IEnumerable<Contato> Contatos { get; private set; }
 
         public string Login => this.Usuario?.Login;
@@ -36,7 +36,7 @@ namespace Lucilvio.Ticket.Dominio.Clientes
         public Chamado AbrirChamado(Protocolo protocolo, string descricao)
         {
             var novoChamado = new Chamado(this, protocolo, descricao);
-            this.Chamados.Add(novoChamado);
+            ((IList<Chamado>)this.Chamados).Add(novoChamado);
             
             return novoChamado;
         }
