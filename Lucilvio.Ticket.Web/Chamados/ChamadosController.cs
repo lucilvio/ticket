@@ -1,16 +1,17 @@
-﻿using Lucilvio.Ticket.Buscas.ListarChamados;
-using Lucilvio.Ticket.Buscas.PegarChamadoPeloProtocolo;
-using Lucilvio.Ticket.Servicos.AbrirChamado;
-using Lucilvio.Ticket.Servicos.ResponderChamado;
+﻿using Microsoft.AspNetCore.Mvc;
 using Lucilvio.Ticket.Web.Chamados.Novo;
+using Lucilvio.Ticket.Buscas.ListarChamados;
+using Lucilvio.Ticket.Servicos.AbrirChamado;
 using Lucilvio.Ticket.Web.Chamados.Responder;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using Lucilvio.Ticket.Servicos.ResponderChamado;
+using Lucilvio.Ticket.Dominio;
+using Lucilvio.Ticket.Web.Autorizacao;
+using Lucilvio.Ticket.Buscas.PegarChamadoPorId;
 
 namespace Lucilvio.Ticket.Web.Chamados
 {
     [Route("Chamados")]
-    public class ChamadosController : Controller
+    public class ChamadosController : TicketController
     {
         private readonly IServicos _servicos;
 
@@ -37,16 +38,26 @@ namespace Lucilvio.Ticket.Web.Chamados
         [Route("Cadastrar")]
         public IActionResult Cadastrar(DadosDoNovoChamado chamado)
         {
-            this._servicos.Enviar(new ComandoParaAbrirChamado("teste", chamado.Descricao));
-
-            return RedirectToAction(nameof(Lista));
+            try
+            {
+                this._servicos.Enviar(new ComandoParaAbrirChamado(User.Login(), chamado.Descricao));
+                return RedirecionarComSucesso(nameof(Lista), "Chamado registrado com sucesso");
+            }
+            catch(ExcecaoDeNegocio ex)
+            {
+                return RedirecionarComErro(nameof(Cadastro), ex.GetType().Name);
+            }
         }
 
         [HttpGet]
-        [Route("Ver/{protocolo}")]
-        public IActionResult Ver(int protocolo)
+        [Route("Ver/{id}")]
+        public IActionResult Ver(int id)
         {
-            var chamado = this._servicos.EnviarQuery(new QueryParaPegarChamadoPorProtocolo(protocolo));
+            var chamado = this._servicos.EnviarQuery(new QueryParaPegarChamadoPorId(id));
+
+            if (chamado == null)
+                return RedirecionarComErro(nameof(Lista), "Chamado não encontrado");
+
             return View(chamado);
         }
 

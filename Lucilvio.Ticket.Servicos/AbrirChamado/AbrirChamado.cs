@@ -25,7 +25,7 @@ namespace Lucilvio.Ticket.Servicos.AbrirChamado
 
             var novoChamado = cliente.AbrirChamado(novoProtocolo, comando.Descricao);
 
-            this._repositorio.Persistir();
+            this._repositorio.Persistir(novoChamado);
         }
     }
 }

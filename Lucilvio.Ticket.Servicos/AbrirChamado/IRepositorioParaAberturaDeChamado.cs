@@ -1,4 +1,5 @@
-﻿using Lucilvio.Ticket.Dominio.Clientes;
+﻿using Lucilvio.Ticket.Dominio.Chamados;
+using Lucilvio.Ticket.Dominio.Clientes;
 
 namespace Lucilvio.Ticket.Servicos.AbrirChamado
 {
@@ -6,6 +7,6 @@ namespace Lucilvio.Ticket.Servicos.AbrirChamado
     {
         Cliente PegarClientePeloLogin(string login);
         int PegarProtocoloDoUltimoChamadoAberto();
-        void Persistir();
+        void Persistir(Chamado chamado);
     }
 }

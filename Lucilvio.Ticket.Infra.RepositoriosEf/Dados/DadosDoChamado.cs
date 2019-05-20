@@ -8,13 +8,13 @@ namespace Lucilvio.Ticket.Infra.Dados
     [Table("Chamados")]
     public class DadosDoChamado : Dados
     {
-        public int Protocolo { get; private set; }
+        public int Protocolo { get; set; }
         [MaxLength(2048)]
-        public string Descricao { get; private set; }
-        public DateTime DataDaAbertura { get; private set; }
+        public string Descricao { get; set; }
+        public DateTime DataDaAbertura { get; set; }
 
         [ForeignKey("ClienteId")]
-        public DadosDoCliente Cliente { get; private set; }
+        public DadosDoCliente Cliente { get; set; }
 
         public ICollection<DadosDeResposta> Respostas { get; set; }
 

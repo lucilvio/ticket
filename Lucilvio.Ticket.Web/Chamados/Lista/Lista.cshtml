@@ -22,7 +22,7 @@
                     <td> @chamado.Cliente </td>
                     <td> @chamado.Descricao </td>
                     <td> @chamado.DataDaAbertura </td>
-                    <td> <a class="btn btn-primary btn-sm" href="Chamados/Ver/@chamado.Protocolo"> Ver </a> </td>
+                    <td> <a class="btn btn-primary btn-sm" href='@Url.Action("Ver", "Chamados", new { id = chamado.Id })'> Ver </a> </td>
                 </tr>
             }
         </thsead>

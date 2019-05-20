@@ -11,6 +11,7 @@ namespace Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios
             var tipoDoDestino = typeof(Resposta);
             var destino = (Resposta)Activator.CreateInstance(tipoDoDestino, true);
 
+            tipoDoDestino.GetProperty("Id").SetValue(destino, dados.Id);
             tipoDoDestino.GetProperty("Texto").SetValue(destino, dados.Texto);
             tipoDoDestino.GetProperty("Data").SetValue(destino, dados.Data);
             tipoDoDestino.GetProperty("Chamado").SetValue(destino, dados.Chamado.ParaEntidade());

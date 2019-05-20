@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Lucilvio.Ticket.Buscas.ListarChamados
+﻿namespace Lucilvio.Ticket.Buscas.ListarChamados
 {
     public class ChamadoDaLista
     {
+        public int Id { get; set; }
         public string Protocolo { get; set; }
         public string Descricao { get; set; }
         public string Cliente { get; set; }

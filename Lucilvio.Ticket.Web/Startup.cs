@@ -4,9 +4,11 @@ using System.Linq;
 using System.Reflection;
 using Lucilvio.Ticket.Buscas;
 using Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios;
+using Lucilvio.Ticket.Infra.GeradorDeProtocolo;
 using Lucilvio.Ticket.Infra.RepositoriosEf.Comum;
 using Lucilvio.Ticket.Infra.SegurancaPorCookie;
 using Lucilvio.Ticket.Servicos;
+using Lucilvio.Ticket.Servicos.AbrirChamado;
 using Lucilvio.Ticket.Servicos.Comum.ServicosExternos.Autenticacao;
 using Lucilvio.Ticket.Web.Autorizacao;
 using Lucilvio.Ticket.Web.Chamados;
@@ -84,10 +86,10 @@ namespace Lucilvio.Ticket.Web
             var tiposDoAssemblyDeServico = typeof(IServico<>).Assembly.GetTypes();
             var tiposDoAssemblyDeAdaptadores = typeof(IAdaptador).Assembly.GetTypes();
 
+            this.InjetarServicosExternos(services);
             this.InjetarAdaptadoresDeRepositorios(services, tiposDoAssemblyDeAdaptadores);
             this.InjetarRepositorios(services, tiposDoAssemblyDeServico);
             this.InjetarBuscas(services, tiposDoAssemblyDeBuscas);
-            this.InjetarServicosExternos(services);
             this.InjetarComandos(services, tiposDoAssemblyDeServico);
 
             services.AddSingleton<IServicos>(provider =>
@@ -138,6 +140,8 @@ namespace Lucilvio.Ticket.Web
             {
                 return new ServicoDeAutenticacaoViaCookie(p.GetService<IHttpContextAccessor>().HttpContext);
             });
+
+            services.AddSingleton<IGeradorDeProtocolo, GeradorDeProtocolo>();
         }
 
         private void InjetarAdaptadoresDeRepositorios(IServiceCollection services, IEnumerable<Type> tipos)

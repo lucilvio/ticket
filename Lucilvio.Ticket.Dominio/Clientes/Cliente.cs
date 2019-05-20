@@ -5,7 +5,7 @@ using Lucilvio.Ticket.Dominio.Usuarios;
 
 namespace Lucilvio.Ticket.Dominio.Clientes
 {
-    public sealed class Cliente : Entidade
+    public sealed class Cliente
     {
         private Cliente()
         {
@@ -22,11 +22,12 @@ namespace Lucilvio.Ticket.Dominio.Clientes
             this.Usuario = Usuario.Cliente(nome, email, email, senha);
         }
 
+        public int Id { get; private set; }
         public string Nome { get; private set; }
         public string Email { get; private set; }
         public Usuario Usuario { get; private set; }
         public DateTime DataDoCadastro { get; private set; }
-        public IEnumerable<Chamado> Chamados { get; private set; }
+        public IList<Chamado> Chamados { get; private set; }
         public IEnumerable<Contato> Contatos { get; private set; }
 
         public string Login => this.Usuario?.Login;
@@ -36,7 +37,7 @@ namespace Lucilvio.Ticket.Dominio.Clientes
         public Chamado AbrirChamado(Protocolo protocolo, string descricao)
         {
             var novoChamado = new Chamado(this, protocolo, descricao);
-            ((IList<Chamado>)this.Chamados).Add(novoChamado);
+            this.Chamados.Add(novoChamado);
             
             return novoChamado;
         }

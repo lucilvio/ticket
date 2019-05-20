@@ -2,6 +2,7 @@
 using Lucilvio.Ticket.Dominio.Clientes;
 using Lucilvio.Ticket.Servicos.AbrirChamado;
 using Lucilvio.Ticket.Infra.RepositoriosEf.Comum;
+using Lucilvio.Ticket.Dominio.Chamados;
 
 namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado
 {
@@ -27,8 +28,9 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado
             return ultimaChamadoCriado == null ? 0 : ultimaChamadoCriado.Protocolo;
         }
 
-        public void Persistir()
+        public void Persistir(Chamado chamado)
         {
+            this._contexto.Add(this._adaptador.AdaptarChamadoParaDados(chamado));
             this._contexto.SaveChanges();
         }
     }
