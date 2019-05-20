@@ -7,6 +7,6 @@ namespace Lucilvio.Ticket.Servicos.AbrirChamado
     {
         Cliente PegarClientePeloLogin(string login);
         int PegarProtocoloDoUltimoChamadoAberto();
-        void Persistir(Chamado chamado);
+        void Persistir(Cliente cliente);
     }
 }

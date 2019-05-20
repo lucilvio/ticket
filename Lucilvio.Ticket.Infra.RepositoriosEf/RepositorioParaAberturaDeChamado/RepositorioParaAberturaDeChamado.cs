@@ -3,6 +3,7 @@ using Lucilvio.Ticket.Dominio.Clientes;
 using Lucilvio.Ticket.Servicos.AbrirChamado;
 using Lucilvio.Ticket.Infra.RepositoriosEf.Comum;
 using Lucilvio.Ticket.Dominio.Chamados;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado
 {
@@ -19,7 +20,7 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado
 
         public Cliente PegarClientePeloLogin(string login)
         {
-            return this._adaptador.AdaptarClienteParaEntidade(this._contexto.Clientes.FirstOrDefault(c => c.Usuario.Login == login));
+            return this._adaptador.AdaptarClienteParaEntidade(this._contexto.Clientes.Include(c => c.Chamados).FirstOrDefault(c => c.Usuario.Login == login));
         }
 
         public int PegarProtocoloDoUltimoChamadoAberto()
@@ -28,9 +29,9 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado
             return ultimaChamadoCriado == null ? 0 : ultimaChamadoCriado.Protocolo;
         }
 
-        public void Persistir(Chamado chamado)
+        public void Persistir(Cliente cliente)
         {
-            this._contexto.Add(this._adaptador.AdaptarChamadoParaDados(chamado));
+            this._contexto.Update(this._adaptador.AdaptarChamadoParaDados(cliente));
             this._contexto.SaveChanges();
         }
     }

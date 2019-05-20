@@ -15,7 +15,7 @@ namespace Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios
                 Descricao = chamado.Descricao,
                 Protocolo = chamado.Protocolo,
                 DataDaAbertura = chamado.DataDaAbertura,
-                Cliente = chamado.Cliente.ParaDados(),
+                //Cliente = chamado.Cliente.ParaDados(),
                 Respostas = chamado.Respostas.Select(r => r.ParaDados()).ToList()
             };
         }

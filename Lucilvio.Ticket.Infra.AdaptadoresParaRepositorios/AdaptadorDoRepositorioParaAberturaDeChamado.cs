@@ -12,7 +12,7 @@ namespace Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios
 {
     public class AdaptadorDoRepositorioParaAberturaDeChamado : IAdaptadorDoRepositorioParaAberturaDeChamado
     {
-        public DadosDoChamado AdaptarChamadoParaDados(Chamado chamado) => chamado.ParaDados();
+        public DadosDoCliente AdaptarChamadoParaDados(Cliente cliente) => cliente.ParaDados();
         public Cliente AdaptarClienteParaEntidade(DadosDoCliente cliente) => cliente.ParaEntidade();
     }
 }

@@ -15,11 +15,13 @@ namespace Lucilvio.Ticket.Infra.AdaptadoresParaRepositorios
             var tipoDoDestino = typeof(Chamado);
             var destino = (Chamado)Activator.CreateInstance(tipoDoDestino, true);
 
-            tipoDoDestino.GetProperty("Protocolo").SetValue(destino, dados.Protocolo);
+            tipoDoDestino.GetProperty("Id").SetValue(destino, dados.Id);
+            tipoDoDestino.GetProperty("Protocolo").SetValue(destino, new Protocolo(dados.Protocolo));
             tipoDoDestino.GetProperty("Descricao").SetValue(destino, dados.Descricao);
             tipoDoDestino.GetProperty("DataDaAbertura").SetValue(destino, dados.DataDaAbertura);
-            tipoDoDestino.GetProperty("Cliente").SetValue(destino, dados.Cliente.ParaEntidade());
-            tipoDoDestino.GetProperty("Respostas").SetValue(destino, dados.Respostas.Select(r => r.ParaEntidade()));
+
+            if (dados.Respostas != null)
+                tipoDoDestino.GetProperty("Respostas").SetValue(destino, dados.Respostas.Select(r => r.ParaEntidade()));
 
             return destino;
         }

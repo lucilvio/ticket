@@ -8,6 +8,6 @@ namespace Lucilvio.Ticket.Infra.RepositoriosEf.RepositorioParaAberturaDeChamado
     public interface IAdaptadorDoRepositorioParaAberturaDeChamado : IAdaptador
     {
         Cliente AdaptarClienteParaEntidade(DadosDoCliente cliente);
-        DadosDoChamado AdaptarChamadoParaDados(Chamado chamado);
+        DadosDoCliente AdaptarChamadoParaDados(Cliente cliente);
     }
 }
